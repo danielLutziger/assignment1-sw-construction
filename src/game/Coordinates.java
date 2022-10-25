@@ -3,10 +3,10 @@ package game;
 import java.util.HashMap;
 
 public class Coordinates {
-    private int x;
-    private int y;
+    private Coordinate start;
+    private Coordinate end;
 
-    private final HashMap<Character, Integer> X_COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
+    private final HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
         put('A', 0);
         put('B', 1);
         put('C', 2);
@@ -19,11 +19,6 @@ public class Coordinates {
         put('J', 9);
     }};
 
-    public Coordinates(){
-        this.x = 0;
-        this.y = 0;
-    }
-
     /**
      *
      * @param coordinates the full coordinates are expected. Faulty inputs cannot be handled.
@@ -33,18 +28,23 @@ public class Coordinates {
     public Coordinates(String coordinates) throws CoordinatesOutOfBoundsException {
         // Entry looks like this:  A2,A5
         String[] coordiantePairs = coordinates.split(",");
-        if (coordiantePairs.length > 1){
-            for (String coords : coordiantePairs){
-                new Coordinates(coords);
+        //assert coordiantePairs.length > 1 && coordiantePairs[0].length() == 2 && coordiantePairs[1].length() == 2 ;
+
+        this.start = placement(coordiantePairs[0]);
+        this.end = placement(coordiantePairs[1]);
+
+    }
+
+    private Coordinate placement(String stringCoordinateValue) throws CoordinatesOutOfBoundsException {
+        try {
+            if (COORDINATE_MAPPING.containsValue(Character.getNumericValue(stringCoordinateValue.strip().charAt(1)))){
+                return new Coordinate(COORDINATE_MAPPING.get(stringCoordinateValue.strip().charAt(0)), Character.getNumericValue(stringCoordinateValue.strip().charAt(1)));
+            } else {
+                throw new CoordinatesOutOfBoundsException("The Coordinates " + stringCoordinateValue+" you have entered are invalid");
             }
-        } else {
-            try {
-                this.x = X_COORDINATE_MAPPING.get(coordinates.strip().charAt(0));
-                this.y = Character.getNumericValue(coordinates.strip().charAt(1));
-            } catch (NullPointerException e){
-                // Throw new Exception that
-                throw new CoordinatesOutOfBoundsException("The Coordinates " + coordinates+" you have entered are invalid");
-            }
+        }catch (NullPointerException e){
+            // Throw new Exception that
+            throw new CoordinatesOutOfBoundsException("The Coordinates " + stringCoordinateValue+" you have entered are invalid");
         }
     }
 
@@ -56,6 +56,13 @@ public class Coordinates {
         return false;
     }
 
+    public Coordinate getStart(){
+        return start;
+    }
+
+    public Coordinate getEnd(){
+        return end;
+    }
 
 
 }

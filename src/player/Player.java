@@ -5,6 +5,7 @@ import game.CoordinatesOutOfBoundsException;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
+import ship.ShipDirectionNotValidException;
 import ship.ShipType;
 
 import java.util.ArrayList;
@@ -47,8 +48,9 @@ public class Player {
                             "Enter Start end End Coordinates (e.g. A0,A" + shipType.getShipLength() + ")");
                     try {
                         Coordinates coordinates = new Coordinates(new Scanner(System.in).next());
+                        Ship ship = new Ship(coordinates, shipType);
                         entered_unsuccessfully = false;
-                    } catch (CoordinatesOutOfBoundsException e) {
+                    } catch (Exception e) {
                         System.out.println("Please enter valid coordinates...");
                         entered_unsuccessfully = true;
                     }

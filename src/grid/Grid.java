@@ -19,7 +19,7 @@ public abstract class Grid {
     }
 
     /**
-     * probably needs to be in the ocean / target specific class not grid itself 
+     * probably needs to be in the ocean / target specific class not grid itself
      * @param ship
      * @return
      */

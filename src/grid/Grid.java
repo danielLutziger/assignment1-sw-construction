@@ -18,6 +18,11 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * probably needs to be in the ocean / target specific class not grid itself 
+     * @param ship
+     * @return
+     */
     public char[][] placeShip(Ship ship) {
         for(int coordinate_values = 0; coordinate_values < ship.getShipType().getShipLength(); coordinate_values++){
             if (ship.getShipDirection() == ShipDirection.HORIZONTAL){

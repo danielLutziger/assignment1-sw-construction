@@ -49,7 +49,7 @@ public class Player {
                     try {
                         Coordinates coordinates = new Coordinates(new Scanner(System.in).next());
                         Ship ship = new Ship(coordinates, shipType);
-                        ocean.placeShip(ship);
+                        this.ocean.placeShip(ship); //placement validation still required! boats can be stacked over each other
                         entered_unsuccessfully = false;
                     } catch (Exception e) {
                         System.out.println("Please enter valid coordinates...");

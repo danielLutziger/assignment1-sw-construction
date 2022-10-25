@@ -38,10 +38,14 @@ public class Ship {
     }
 
     private ShipDirection getShipDirectionFromPlacement(Coordinate start, Coordinate end){
-        if (start.getX() > end.getX()){
-            return ShipDirection.HORIZONTAL;
-        } else {
+        if (start.getX() < end.getX()){
             return ShipDirection.VERTICAL;
+        } else {
+            return ShipDirection.HORIZONTAL;
         }
     }
+
+    public Coordinates getCoordinates(){return this.coordinates;}
+    public ShipDirection getShipDirection(){return this.shipDirection;}
+    public ShipType getShipType(){return this.shipType;}
 }

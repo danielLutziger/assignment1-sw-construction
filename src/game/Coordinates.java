@@ -6,6 +6,8 @@ public class Coordinates {
     private Coordinate start;
     private Coordinate end;
 
+    private Coordinate attack;
+
     private final HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
         put('A', 0);
         put('B', 1);
@@ -25,16 +27,26 @@ public class Coordinates {
      *                   An example of the full coordinates look like this
      *                   A1,A5 || A2, A7
      */
-    public Coordinates(String coordinates) throws CoordinatesOutOfBoundsException {
-        // Entry looks like this:  A2,A5
-        String[] coordiantePairs = coordinates.split(",");
-        //assert coordiantePairs.length > 1 && coordiantePairs[0].length() == 2 && coordiantePairs[1].length() == 2 ;
+    public Coordinates(String[] coordinates) throws CoordinatesOutOfBoundsException {
 
-        this.start = placement(coordiantePairs[0]);
-        this.end = placement(coordiantePairs[1]);
+        //TODO: assert coordiantePairs.length > 1 && coordiantePairs[0].length() == 2 && coordiantePairs[1].length() == 2 ;
 
+        this.start = placement(coordinates[0]);
+        this.end = placement(coordinates[1]);
     }
 
+    public Coordinates(String coordinate) throws CoordinatesOutOfBoundsException {
+        // new single coordinate
+        this.attack = placement(coordinate);
+    }
+
+    /**
+     * TODO: METHOD currenly only takes char at 1 for the int values A12 => A1 => which is valid!!
+     * Method for the coordinate creation
+     * @param stringCoordinateValue: the coordinate value which the user has entered
+     * @return return the Coordinate object
+     * @throws CoordinatesOutOfBoundsException: in case of invalid Coordinates a new OutOfBounds exception will be thorwn
+     */
     private Coordinate placement(String stringCoordinateValue) throws CoordinatesOutOfBoundsException {
         try {
             if (COORDINATE_MAPPING.containsValue(Character.getNumericValue(stringCoordinateValue.strip().charAt(1)))){
@@ -49,20 +61,20 @@ public class Coordinates {
     }
 
     /**
+     * TODO: Method is not used!
      * Method to check if a ship is out of bounds
      * @return isOutOfBounds
      */
     private boolean isOutOfBounds(){
         return false;
     }
-
     public Coordinate getStart(){
         return start;
     }
-
     public Coordinate getEnd(){
         return end;
     }
+    public Coordinate getAttack(){return attack;}
 
 
 }

@@ -12,9 +12,14 @@ public class Main {
         Player player = new Player();
         Player ai = new Player(true);
         ai.getOcean().printGrid();
+        player.attack();
         player.setShips();
         //TODO: AI ship placement - here it's mocked
         ai.setOcean(player.getOcean());
+
+        //TODO: decide who starts first
+        //TODO: start attacks
+        //
 
         /*
         Fast placements:
@@ -39,10 +44,6 @@ public class Main {
          * do turns
          * check if game is over
          *
-         */
-        /*
-         * TODO: Coordinates in ENTRY somehow do not add up with ship length => A0,A6 => length 7 instead of 6
-         * TODO: last value on grid cannot be accessed => value number 9 (same for rows)
          */
 
     }

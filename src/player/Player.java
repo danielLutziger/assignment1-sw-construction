@@ -19,18 +19,25 @@ public class Player {
     public Player(){
         this.ai = false;
         this.ocean = new Ocean();
-        //this.target = new Target();
+        this.target = new Target();
     }
 
     //constructor to create either a user or an AI
     public Player(boolean ai){
         this.ocean = new Ocean();
-        //this.target = new Target();
+        this.target = new Target();
         this.ai = ai;
     }
 
     public Ocean getOcean() {
         return ocean;
+    }
+
+    /*
+    TODO: DELETE THIS METHOD ONCE AI SHIP PLACEMENT IS COMPLETED!
+     */
+    public void setOcean(Ocean ocean) {
+        this.ocean = ocean;
     }
 
     public Target getTarget() {

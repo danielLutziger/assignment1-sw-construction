@@ -13,7 +13,8 @@ public class Main {
         Player ai = new Player(true);
         ai.getOcean().printGrid();
         player.setShips();
-        //ai.getGrid().printGrid();
+        //TODO: AI ship placement - here it's mocked
+        ai.setOcean(player.getOcean());
 
         /*
         Fast placements:
@@ -29,6 +30,9 @@ public class Main {
         F5,F6
         J2,J3
          */
+
+        //start round
+
 
         /*
          *

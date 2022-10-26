@@ -7,7 +7,7 @@ public abstract class Grid {
     private final int size = 10;
     private char[][] grid;
 
-    private final char INIT_FILLER_VALUE = ' ';
+    private final char INIT_FILLER_VALUE = 'X';
 
     /**
      * Constructor of the grid

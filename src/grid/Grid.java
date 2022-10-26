@@ -7,12 +7,18 @@ public abstract class Grid {
     private final int size = 10;
     private char[][] grid;
 
+    private final char INIT_FILLER_VALUE = ' ';
+
+    /**
+     * Constructor of the grid
+     * Fill the grid with 'X' values
+     */
     public Grid(){
         grid = new char[this.size][this.size];
         //fill Grid with 'x'
         for (int row = 0; row < size; row++){
             for(int column = 0; column < size; column++){
-                grid[row][column] = 'X';
+                grid[row][column] = INIT_FILLER_VALUE;
             }
         }
     }
@@ -23,12 +29,12 @@ public abstract class Grid {
      * @throws ShipPlacementCollision: will throw an exception if the placement was not successful, placement will in this case not take over the grid
      */
     public char[][] placeShip(Ship ship) throws ShipPlacementCollision {
-        char[][] localGrid = this.grid;
+        char[][] localGrid = grid;
         for(int coordinate_values = 0; coordinate_values < ship.getShipType().getShipLength(); coordinate_values++){
-            if (ship.getShipDirection() == ShipDirection.HORIZONTAL && isCoordinateAvailableForShipPlacement(this.grid[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values])){
+            if (ship.getShipDirection() == ShipDirection.HORIZONTAL && isCoordinateAvailableForShipPlacement(grid[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values])){
                 localGrid[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values] = ship.getShipType().getAbbreviation();
             }
-            else if (ship.getShipDirection() == ShipDirection.VERTICAL && isCoordinateAvailableForShipPlacement(this.grid[ship.getCoordinates().getStart().getX()+coordinate_values][ship.getCoordinates().getStart().getY()])){
+            else if (ship.getShipDirection() == ShipDirection.VERTICAL && isCoordinateAvailableForShipPlacement(grid[ship.getCoordinates().getStart().getX()+coordinate_values][ship.getCoordinates().getStart().getY()])){
                 localGrid[ship.getCoordinates().getStart().getX()+coordinate_values][ship.getCoordinates().getStart().getY()] = ship.getShipType().getAbbreviation();
             }
             else {
@@ -45,13 +51,16 @@ public abstract class Grid {
     }
 
     public boolean isCoordinateAvailableForShipPlacement(char placeOnGrid) throws ShipPlacementCollision {
-        if (placeOnGrid == 'X'){
+        if (placeOnGrid == INIT_FILLER_VALUE){
             return true;
         } else {
             throw new ShipPlacementCollision("Ship placement is not valid, another ship is already there!");
         }
     }
 
+    /**
+     * Print the grid
+     */
     public void printGrid(){
         for (int row = 0; row < size; row++){
             System.out.println(grid[row]);

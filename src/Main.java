@@ -17,26 +17,15 @@ public class Main {
             player.attack(ai);
         }
         //TODO: AI ship placement - here it's mocked
+        //TODO: AI shooting behaviour
 
 
         //TODO: decide who starts first
         //TODO: start attacks
-        //
+        //TODO: check whether fleet is sunk
+        //TODO: rework the grid layout
 
-        /*
-        Fast placements:
-
-        E9,J9
-        G0,J0
-        A2,A5
-        D0,D2
-        F2,H2
-        J5,J7
-        A0,B0
-        A7,B7
-        F5,F6
-        J2,J3
-         */
+        //TODO: refactor code and check whether it is at the right location
 
         //start round
 

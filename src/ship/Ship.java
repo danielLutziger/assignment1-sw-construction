@@ -8,12 +8,15 @@ public class Ship {
     private ShipDirection shipDirection;
     private final ShipType shipType;
 
+    private int health;
+
     public Ship(Coordinates coordinates, ShipType shipType) throws ShipDirectionNotValidException{
         this.coordinates = coordinates;
         this.shipType = shipType;
         if (isPlacementValid(coordinates.getStart(), coordinates.getEnd(), shipType.getShipLength())){
             this.shipDirection = getShipDirectionFromPlacement(coordinates.getStart(), coordinates.getEnd());
         }
+        this.health = shipType.getShipLength();
     }
     private boolean isPlacementValid(Coordinate start, Coordinate end, int shipLength) throws ShipDirectionNotValidException{
         if(start.getX() == end.getX()){
@@ -39,6 +42,12 @@ public class Ship {
         }
     }
 
+    public int getHealth(){
+        return health;
+    }
+    public void shipGotHit(){
+        health--;
+    }
     public Coordinates getCoordinates(){return this.coordinates;}
     public ShipDirection getShipDirection(){return this.shipDirection;}
     public ShipType getShipType(){return this.shipType;}

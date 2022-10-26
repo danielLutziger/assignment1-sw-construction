@@ -1,13 +1,15 @@
 package player;
 
 import game.Coordinates;
-import game.CoordinatesOutOfBoundsException;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
 import ship.ShipType;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -21,6 +23,7 @@ public class Player {
         this.ai = false;
         this.ocean = new Ocean();
         this.target = new Target();
+        this.ships = new ArrayList<>();
     }
 
     //constructor to create either a user or an AI
@@ -28,17 +31,11 @@ public class Player {
         this.ocean = new Ocean();
         this.target = new Target();
         this.ai = ai;
+        this.ships = new ArrayList<>();
     }
 
     public Ocean getOcean() {
         return ocean;
-    }
-
-    /*
-    TODO: DELETE THIS METHOD ONCE AI SHIP PLACEMENT IS COMPLETED!
-     */
-    public void setOcean(Ocean ocean) {
-        this.ocean = ocean;
     }
 
     public Target getTarget() {
@@ -53,9 +50,12 @@ public class Player {
                     System.out.println("Where do you want to place your " + shipType + " (size: " + shipType.getShipLength() + ") (Ship no. " + (shipFromType + 1) + "/ " + shipType.getNumberOfShips() + ")\n" +
                             "Enter Start end End Coordinates (e.g. A1,A" + shipType.getShipLength() + ")");
                     try {
-                        Coordinates coordinates = new Coordinates(new Scanner(System.in).next().split(","));
+                        //Coordinates coordinates = new Coordinates(new Scanner(System.in).next().split(","));
+                        //MOCK
+                        Coordinates coordinates = new Coordinates(new Scanner(mockShipPlacement()).next().split(","));
                         Ship ship = new Ship(coordinates, shipType);
-                        this.ocean.placeShip(ship); //placement validation still required! boats can be stacked over each other
+                        ocean.placeShip(ship); //placement validation still required! boats can be stacked over each other
+                        ships.add(ship);
                         entered_unsuccessfully = false;
                     } catch (Exception e) {
                         System.out.println("\nPlease enter valid coordinates...\n\n");
@@ -71,18 +71,42 @@ public class Player {
         }
     }
 
-    public void attack() {
-        boolean unsuccessfullAttack = true;
+    private int counter = -1;
+    private InputStream mockShipPlacement(){
+        counter++;
+        String[] pm = {"E9,J9",
+        "G0,J0",
+        "A2,A5",
+        "D0,D2",
+        "F2,H2",
+        "J5,J7",
+        "A0,B0",
+        "A7,B7",
+        "F5,F6",
+        "J2,J3"};
+        InputStream in = new ByteArrayInputStream(pm[counter].getBytes());
+        return in;
+    }
+
+    public void attack(Player enemy) {
+        boolean unsuccessfulAttack = true;
         do {
+            System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
                 Coordinates coordinate = new Coordinates(new Scanner(System.in).next());
-                unsuccessfullAttack = false;
+                target.shipAttack(coordinate, enemy);
+                unsuccessfulAttack = false;
             } catch (Exception e) {
                 System.out.println("\nPlease enter valid coordinates...\n\n");
                 System.out.println("Specific error message");
                 System.out.println(e.getMessage());
                 System.out.println("\n\nEnter them again...\n");
             }
-        } while(unsuccessfullAttack);
+        } while(unsuccessfulAttack);
+        this.target.printGrid();
+    }
+
+    public ArrayList<Ship> getShips(){
+        return ships;
     }
 }

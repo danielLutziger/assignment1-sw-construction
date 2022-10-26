@@ -4,15 +4,9 @@ import game.Coordinate;
 import game.Coordinates;
 
 public class Ship {
-    private Coordinates coordinates;
+    private final Coordinates coordinates;
     private ShipDirection shipDirection;
-    private ShipType shipType;
-
-    public Ship(){
-        this.coordinates = null;
-        this.shipDirection = null;
-        this.shipType = null;
-    }
+    private final ShipType shipType;
 
     public Ship(Coordinates coordinates, ShipType shipType) throws ShipDirectionNotValidException{
         this.coordinates = coordinates;
@@ -23,18 +17,18 @@ public class Ship {
     }
     private boolean isPlacementValid(Coordinate start, Coordinate end, int shipLength) throws ShipDirectionNotValidException{
         if(start.getX() == end.getX()){
-            if(start.getY()+shipLength == end.getY()){
+            if((start.getY()+shipLength-1) == end.getY()){ //1+6 = 7
                 return true;
             } else {
-                throw new ShipDirectionNotValidException("Ship direction is not valid! You can only place it Vertical or Horizontal!");
+                throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");
             }
         } else if (start.getY() == end.getY()){
-            if(start.getX()+shipLength == end.getX()){
+            if((start.getX()+shipLength-1) == end.getX()){
                 return true;
             } else {
-                throw new ShipDirectionNotValidException("Ship direction is not valid! You can only place it Vertical or Horizontal!");            }
+                throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");            }
         } else{
-            throw new ShipDirectionNotValidException("Ship direction is not valid! You can only place it Vertical or Horizontal!");        }
+            throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");        }
     }
 
     private ShipDirection getShipDirectionFromPlacement(Coordinate start, Coordinate end){

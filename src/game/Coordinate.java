@@ -1,9 +1,9 @@
 package game;
 
 public class Coordinate {
-    private int x;
-    private int y;
-    public Coordinate(int x_coordinate, int y_coordinate){
+    private final int x;
+    private final int y;
+    public Coordinate(int y_coordinate, int x_coordinate){
         this.x = x_coordinate;
         this.y = y_coordinate;
     }

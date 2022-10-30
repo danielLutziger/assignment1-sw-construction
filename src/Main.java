@@ -5,21 +5,14 @@ import player.Player;
 public class Main {
     public static void main(String[] args) {
 
-        /*
-         * Create new Grid
-         * Init Human / AI
-         * Ask for placement
-         *
-         */
         Human player = new Human();
         Computer ai = new Computer();
-        //player.setShips();
+        player.setShips();
         ai.setShips();
-        /*
+
         for(int x = 0;x<10;x++) {
-          //  player.attack(ai);
-        }*/
-        //TODO: AI ship placement - here it's mocked
+           player.attack(ai);
+        }
         //TODO: AI shooting behaviour
 
         //TODO: decide who starts first

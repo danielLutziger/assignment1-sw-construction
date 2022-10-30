@@ -1,6 +1,9 @@
 package game;
 
+import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Coordinates {
     private Coordinate start;
@@ -38,6 +41,30 @@ public class Coordinates {
     public Coordinates(String coordinate) throws CoordinatesOutOfBoundsException {
         // new single coordinate
         this.attack = placement(coordinate);
+    }
+
+    public Coordinates(int direction, int shipLength, int randomX, int randomY) throws CoordinatesOutOfBoundsException {
+        //get key from value
+        String coordvalue = getKeyFromValue(randomY) + Integer.toString(randomX);
+        this.start = placement(coordvalue);
+        //generate random coordinate
+        if (direction == 1){
+            //horizontal
+            coordvalue = getKeyFromValue(randomY+shipLength-1) + Integer.toString(randomX);
+        }else {
+            //vertical
+            coordvalue = getKeyFromValue(randomY) + Integer.toString(randomX+shipLength-1);
+        }
+        this.end = placement(coordvalue);
+    }
+
+    private char getKeyFromValue(int value){
+        for(Map.Entry<Character, Integer> entry: COORDINATE_MAPPING.entrySet()){
+            if (entry.getValue() == value){
+                return entry.getKey();
+            }
+        }
+        return ' ';
     }
 
     /**

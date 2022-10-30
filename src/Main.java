@@ -1,3 +1,5 @@
+import player.Computer;
+import player.Human;
 import player.Player;
 
 public class Main {
@@ -9,16 +11,16 @@ public class Main {
          * Ask for placement
          *
          */
-        Player player = new Player();
-        Player ai = new Player(true);
-        player.setShips();
+        Human player = new Human();
+        Computer ai = new Computer();
+        //player.setShips();
         ai.setShips();
+        /*
         for(int x = 0;x<10;x++) {
-            player.attack(ai);
-        }
+          //  player.attack(ai);
+        }*/
         //TODO: AI ship placement - here it's mocked
         //TODO: AI shooting behaviour
-
 
         //TODO: decide who starts first
         //TODO: start attacks

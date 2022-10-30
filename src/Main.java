@@ -1,4 +1,7 @@
+import player.Computer;
 import player.Player;
+
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,14 +13,21 @@ public class Main {
          *
          */
         Player player = new Player();
-        Player ai = new Player(true);
+        Computer ai = new Computer();
         player.setShips();
         ai.setShips();
         for(int x = 0;x<10;x++) {
             player.attack(ai);
         }
         //TODO: AI ship placement - here it's mocked
+        //get input from user for ship placement
+
+
+
+
+
         //TODO: AI shooting behaviour
+        //
 
 
         //TODO: decide who starts first

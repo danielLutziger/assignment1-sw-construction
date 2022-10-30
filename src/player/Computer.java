@@ -108,21 +108,18 @@ public class Computer extends Player{
         Random random = new Random();
         boolean unsuccessfulAttack = true;
         do {
-            System.out.println("Attack attack attack, Captain enter the coordinates");
+            System.out.println("Opponent enters coordinates");
             try {
                 int x = random.nextInt(GRID_SIZE);
                 int y = random.nextInt(GRID_SIZE);
                 char X = COORDINATE_LETTERS.get(x);
                 String start = new StringBuilder().append(X).append(y).toString();
-                String[] coordinateInput = {start};
+                String coordinateInput = start;
                 Coordinates coordinate = new Coordinates(coordinateInput);
                 target.shipAttack(coordinate, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
-                System.out.println("\nPlease enter valid coordinates...\n\n");
-                System.out.println("Specific error message");
-                System.out.println(e.getMessage());
-                System.out.println("\n\nEnter them again...\n");
+                System.out.println("\nComputer gave invalid coordinates\n");
             }
         } while(unsuccessfulAttack);
         this.target.printGrid();

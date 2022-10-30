@@ -18,6 +18,7 @@ public class Main {
         ai.setShips();
         for(int x = 0;x<10;x++) {
             player.attack(ai);
+            ai.attack(player);
         }
         //TODO: AI ship placement - here it's mocked
         //get input from user for ship placement

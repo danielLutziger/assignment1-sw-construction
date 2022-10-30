@@ -18,7 +18,7 @@ public class Computer extends Player{
     private Target target;
 
     private ArrayList<Ship> ships;
-    HashMap<Integer, Character> COORDINATE_MAPPING = new HashMap<Integer, Character>() {{
+    HashMap<Integer, Character> COORDINATE_LETTERS = new HashMap<Integer, Character>() {{
         put(0, 'A');
         put(1, 'B');
         put(2, 'C');
@@ -73,33 +73,31 @@ public class Computer extends Player{
                         assert(x + (shipType.getShipLength()-1) <= 9);
                         assert(y + (shipType.getShipLength()-1) <= 9);
 
-                        char X = COORDINATE_MAPPING.get(x);
-                        char X_end_v = COORDINATE_MAPPING.get(x + (shipType.getShipLength()-1));
+                        char X = COORDINATE_LETTERS.get(x);
+                        char X_end_v = COORDINATE_LETTERS.get(x + (shipType.getShipLength()-1));
 
                         String start = new StringBuilder().append(X).append(y).toString();
-                        String end_horizontal = new StringBuilder().append(X).append(y + (shipType.getShipLength()-1)).toString();
-                        String end_vertical = new StringBuilder().append(X_end_v).append(y).toString();;
-
-                        String[] coordinateInputVert = {start, end_vertical};
-                        String[] coordinateInputHoriz = {start, end_horizontal};
                         Coordinates coordinates;
                         if (vertical) {
+                            String end_vertical = new StringBuilder().append(X_end_v).append(y).toString();
+                            String[] coordinateInputVert = {start, end_vertical};
                             coordinates = new Coordinates(coordinateInputVert);
                         }
                         else{
+                            String end_horizontal = new StringBuilder().append(X).append(y + (shipType.getShipLength()-1)).toString();
+                            String[] coordinateInputHoriz = {start, end_horizontal};
                             coordinates = new Coordinates(coordinateInputHoriz);
                         }
                         Ship ship = new Ship(coordinates, shipType);
-                        ocean.placeShip(ship); //placement validation still required! boats can be stacked over each other
+                        ocean.placeShip(ship);
                         ships.add(ship);
 
                         placed_unsuccessfully = false;
-                        System.out.println("placement successfull");
+                        System.out.println("placement successful");
                     } catch (Exception e) {
                         placed_unsuccessfully = true;
                         System.out.println("placement failed");
                     }
-
                 }while(placed_unsuccessfully);
                 this.ocean.printGrid();
             }
@@ -107,11 +105,17 @@ public class Computer extends Player{
     }
 
     public void attack(Player enemy) {
+        Random random = new Random();
         boolean unsuccessfulAttack = true;
         do {
             System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
-                Coordinates coordinate = new Coordinates(new Scanner(System.in).next());
+                int x = random.nextInt(GRID_SIZE);
+                int y = random.nextInt(GRID_SIZE);
+                char X = COORDINATE_LETTERS.get(x);
+                String start = new StringBuilder().append(X).append(y).toString();
+                String[] coordinateInput = {start};
+                Coordinates coordinate = new Coordinates(coordinateInput);
                 target.shipAttack(coordinate, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {

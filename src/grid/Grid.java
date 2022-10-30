@@ -30,6 +30,10 @@ public abstract class Grid {
         return grid;
     }
 
+    public int getGridSize(){
+        return size;
+    }
+
     /**
      * Print the grid
      */

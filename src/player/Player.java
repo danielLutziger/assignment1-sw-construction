@@ -15,8 +15,7 @@ import java.util.Scanner;
 public class Player {
     private boolean ai;
     private Ocean ocean;
-    private Target target;
-
+    private Target target; //changed to public to use in inheriting class
     private ArrayList<Ship> ships;
 
     public Player(){

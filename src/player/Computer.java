@@ -18,17 +18,17 @@ public class Computer extends Player{
     private Target target;
 
     private ArrayList<Ship> ships;
-    HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
-        put('A', 0);
-        put('B', 1);
-        put('C', 2);
-        put('D', 3);
-        put('E', 4);
-        put('F', 5);
-        put('G', 6);
-        put('H', 7);
-        put('I', 8);
-        put('J', 9);
+    HashMap<Integer, Character> COORDINATE_MAPPING = new HashMap<Integer, Character>() {{
+        put(0, 'A');
+        put(1, 'B');
+        put(2, 'C');
+        put(3, 'D');
+        put(4, 'E');
+        put(5, 'F');
+        put(6, 'G');
+        put(7, 'H');
+        put(8, 'I');
+        put(9, 'J');
     }};
 
     int GRID_SIZE;
@@ -54,23 +54,45 @@ public class Computer extends Player{
                     try {
                         //System.out.println("Placing ship with length: " + i);
                         //start point of the ship and direction
-                        int x = random.nextInt(GRID_SIZE);
-                        int y = random.nextInt(GRID_SIZE);
                         boolean vertical = random.nextBoolean();
+                        int x;
+                        int y;
+                        if(vertical) {
+                            x = random.nextInt(GRID_SIZE);
+                            y = random.nextInt(GRID_SIZE - (shipType.getShipLength()-1));
+                        }
+                        else {
+                            x = random.nextInt(GRID_SIZE - (shipType.getShipLength()-1));
+                            y = random.nextInt(GRID_SIZE);
+                        }
 
-                        String start = new StringBuilder().append(COORDINATE_MAPPING.get(x)).append((char)y).toString();
-                        String end;
+
+                        //check valid coordinates
+                        assert(x <= 9);
+                        assert(y <= 9);
+                        assert(x + (shipType.getShipLength()-1) <= 9);
+                        assert(y + (shipType.getShipLength()-1) <= 9);
+
+                        char X = COORDINATE_MAPPING.get(x);
+                        char X_end_v = COORDINATE_MAPPING.get(x + (shipType.getShipLength()-1));
+
+                        String start = new StringBuilder().append(X).append(y).toString();
+                        String end_horizontal = new StringBuilder().append(X).append(y + (shipType.getShipLength()-1)).toString();
+                        String end_vertical = new StringBuilder().append(X_end_v).append(y).toString();;
+
+                        String[] coordinateInputVert = {start, end_vertical};
+                        String[] coordinateInputHoriz = {start, end_horizontal};
+                        Coordinates coordinates;
                         if (vertical) {
-                            end = new StringBuilder().append(COORDINATE_MAPPING.get(x)).append(+ (char)y + (char)shipType.getShipLength()).toString();
+                            coordinates = new Coordinates(coordinateInputVert);
                         }
                         else{
-                            end = new StringBuilder().append(COORDINATE_MAPPING.get(x + shipType.getShipLength())).append(+ (char)y + (char)shipType.getShipLength()).toString();
+                            coordinates = new Coordinates(coordinateInputHoriz);
                         }
-
-                        Coordinates coordinates = new Coordinates(new StringBuilder().append(start).append(',').append(end).toString());
                         Ship ship = new Ship(coordinates, shipType);
                         ocean.placeShip(ship); //placement validation still required! boats can be stacked over each other
                         ships.add(ship);
+
                         placed_unsuccessfully = false;
                         System.out.println("placement successfull");
                     } catch (Exception e) {

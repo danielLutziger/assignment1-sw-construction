@@ -73,18 +73,18 @@ public class Computer extends Player{
                         assert(x + (shipType.getShipLength()-1) <= 9);
                         assert(y + (shipType.getShipLength()-1) <= 9);
 
-                        char X = COORDINATE_LETTERS.get(x);
-                        char X_end_v = COORDINATE_LETTERS.get(x + (shipType.getShipLength()-1));
+                        char x_letter = COORDINATE_LETTERS.get(x);
+                        char x_end_letter = COORDINATE_LETTERS.get(x + (shipType.getShipLength()-1));
 
-                        String start = new StringBuilder().append(X).append(y).toString();
+                        String start = new StringBuilder().append(x_letter).append(y).toString();
                         Coordinates coordinates;
                         if (vertical) {
-                            String end_vertical = new StringBuilder().append(X_end_v).append(y).toString();
+                            String end_vertical = new StringBuilder().append(x_end_letter).append(y).toString();
                             String[] coordinateInputVert = {start, end_vertical};
                             coordinates = new Coordinates(coordinateInputVert);
                         }
                         else{
-                            String end_horizontal = new StringBuilder().append(X).append(y + (shipType.getShipLength()-1)).toString();
+                            String end_horizontal = new StringBuilder().append(x_letter).append(y + (shipType.getShipLength()-1)).toString();
                             String[] coordinateInputHoriz = {start, end_horizontal};
                             coordinates = new Coordinates(coordinateInputHoriz);
                         }
@@ -112,26 +112,16 @@ public class Computer extends Player{
             try {
                 int x = random.nextInt(GRID_SIZE);
                 int y = random.nextInt(GRID_SIZE);
-                char X = COORDINATE_LETTERS.get(x);
-                String start = new StringBuilder().append(X).append(y).toString();
-                String coordinateInput = start;
+                char x_letter = COORDINATE_LETTERS.get(x);
+                String coordinateInput = new StringBuilder().append(x_letter).append(y).toString();
                 Coordinates coordinate = new Coordinates(coordinateInput);
                 target.shipAttack(coordinate, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 System.out.println("\nComputer gave invalid coordinates\n");
             }
+            //TODO check if we hit something on target grid and display this
         } while(unsuccessfulAttack);
         this.target.printGrid();
-
-
-        //chose random number in x and y from 0-9
-        //create a coordinate
-        //check if at this number already an attack was executed
-        //if not shoot
-        //shipAttack method does both
-        // catch exception from ship attack
-        // handle ship already attacked exception
-        // with new random number generation
     }
 }

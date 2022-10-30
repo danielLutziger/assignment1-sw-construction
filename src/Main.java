@@ -21,14 +21,9 @@ public class Main {
             ai.attack(player);
         }
         //TODO: AI ship placement - here it's mocked
-        //get input from user for ship placement
-
-
-
-
 
         //TODO: AI shooting behaviour
-        //
+
 
 
         //TODO: decide who starts first

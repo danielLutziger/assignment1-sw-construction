@@ -36,7 +36,7 @@ public class Target extends Grid{
         return getGrid();
     }
 
-    public void evaluateShipAndValidateAttack(Ship ship,Coordinates attack) throws ShipAlreadyAttackedException {
+    private void evaluateShipAndValidateAttack(Ship ship,Coordinates attack) throws ShipAlreadyAttackedException {
         if(ship.getShipDirection() == ShipDirection.VERTICAL){
             if(ship.getCoordinates().getStart().getY() == attack.getAttack().getY() &&
                     (ship.getCoordinates().getStart().getX() <= attack.getAttack().getX() && attack.getAttack().getX() <= ship.getCoordinates().getEnd().getX())){
@@ -60,7 +60,7 @@ public class Target extends Grid{
         }
     }
 
-    public char[][] overrideSunkenShip(Ship ship) throws ShipAlreadyAttackedException {
+    private char[][] overrideSunkenShip(Ship ship) throws ShipAlreadyAttackedException {
         char[][] localGrid = getGrid();
         for(int coordinate_values = 0; coordinate_values < ship.getShipType().getShipLength(); coordinate_values++){
             if (ship.getShipDirection() == ShipDirection.HORIZONTAL){

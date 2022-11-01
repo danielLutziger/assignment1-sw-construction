@@ -4,15 +4,28 @@ import player.Human;
 public class Main {
     public static void main(String[] args) {
 
-        Human player = new Human();
+        //Human player = new Human();
         Computer ai = new Computer();
-        player.setShips();
+        Computer ai2 = new Computer();
+        //player.setShips();
         ai.setShips();
+        ai2.setShips();
 
-        for(int x = 0;x<10;x++) {
-            player.attack(ai);
-            ai.attack(player);
-        }
+        boolean gameRunning = true;
+        do {
+            ai2.attack(ai);
+            if (ai.isFleetDestroyed()){
+                gameRunning = false;
+                System.out.println("Winner is AI2");
+                break;
+            }
+            ai.attack(ai2);
+            if (ai2.isFleetDestroyed()){
+                gameRunning = false;
+                System.out.println("Winner is AI");
+                break;
+            }
+        }while(gameRunning);
         //TODO: AI ship placement - here it's mocked
 
         //TODO: AI shooting behaviour

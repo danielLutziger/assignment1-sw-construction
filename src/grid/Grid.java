@@ -1,7 +1,7 @@
 package grid;
 
 public abstract class Grid {
-    protected final int size = 10;
+    private final int size = 10;
     private char[][] grid;
 
     protected final char INIT_FILLER_VALUE = 'X';

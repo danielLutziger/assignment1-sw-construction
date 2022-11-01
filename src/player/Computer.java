@@ -47,10 +47,11 @@ public class Computer extends Player {
         this.getOcean().printGrid();
     }
     public void attack(Player enemy) {
+        System.out.println("Opponent enters coordinates");
         Random random = new Random();
         boolean unsuccessfulAttack = true;
         do {
-            System.out.println("Opponent enters coordinates");
+
             try {
                 int x = random.nextInt(getTarget().getGridSize());
                 int y = random.nextInt(getTarget().getGridSize());
@@ -58,7 +59,7 @@ public class Computer extends Player {
                 getTarget().shipAttack(coordinates, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
-                System.out.println("\nComputer gave invalid coordinates\n");
+                //coordinates were already attacked or anything. we do not want to write an output to not spam the user
             }
             //TODO check if we hit something on target grid and display this
         } while(unsuccessfulAttack);

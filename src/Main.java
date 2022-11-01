@@ -12,7 +12,11 @@ public class Main {
 
         for(int x = 0;x<10;x++) {
            player.attack(ai);
+            player.attack(ai);
+            ai.attack(player);
         }
+        //TODO: AI ship placement - here it's mocked
+
         //TODO: AI shooting behaviour
 
         //TODO: decide who starts first

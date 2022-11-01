@@ -1,9 +1,5 @@
 package grid;
 
-import game.Coordinates;
-import ship.Ship;
-import ship.ShipDirection;
-
 public abstract class Grid {
     protected final int size = 10;
     private char[][] grid;

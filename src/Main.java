@@ -1,6 +1,5 @@
 import player.Computer;
 import player.Human;
-import player.Player;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +10,6 @@ public class Main {
         ai.setShips();
 
         for(int x = 0;x<10;x++) {
-           player.attack(ai);
             player.attack(ai);
             ai.attack(player);
         }

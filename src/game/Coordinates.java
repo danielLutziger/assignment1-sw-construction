@@ -58,6 +58,12 @@ public class Coordinates {
         this.end = placement(coordvalue);
     }
 
+    public Coordinates(int x, int y) throws CoordinatesOutOfBoundsException {
+        //get key from value
+        String coordvalue = getKeyFromValue(x) + Integer.toString(y);
+        this.attack = placement(coordvalue);
+    }
+
     private char getKeyFromValue(int value){
         for(Map.Entry<Character, Integer> entry: COORDINATE_MAPPING.entrySet()){
             if (entry.getValue() == value){

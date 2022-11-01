@@ -25,12 +25,12 @@ public class Computer extends Player {
                         int randomX = 0;
                         if (direction == 1) {
                             //horizontal
-                            randomX = rand.nextInt(10 - shipType.getShipLength());
-                            randomY = rand.nextInt(10);
+                            randomX = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
+                            randomY = rand.nextInt(getTarget().getGridSize());
                         } else {
                             //vertical
-                            randomY = rand.nextInt(10 - shipType.getShipLength());
-                            randomX = rand.nextInt(10);
+                            randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
+                            randomX = rand.nextInt(getTarget().getGridSize());
                         }
                         Coordinates coordinates = new Coordinates(direction, shipType.getShipLength(), randomX, randomY);
                         Ship ship = new Ship(coordinates, shipType);
@@ -52,18 +52,16 @@ public class Computer extends Player {
         do {
             System.out.println("Opponent enters coordinates");
             try {
-                int x = random.nextInt(GRID_SIZE);
-                int y = random.nextInt(GRID_SIZE);
-                char x_letter = COORDINATE_LETTERS.get(x);
-                String coordinateInput = new StringBuilder().append(x_letter).append(y).toString();
-                Coordinates coordinate = new Coordinates(coordinateInput);
-                target.shipAttack(coordinate, enemy);
+                int x = random.nextInt(getTarget().getGridSize());
+                int y = random.nextInt(getTarget().getGridSize());
+                Coordinates coordinates = new Coordinates(x, y);
+                getTarget().shipAttack(coordinates, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 System.out.println("\nComputer gave invalid coordinates\n");
             }
             //TODO check if we hit something on target grid and display this
         } while(unsuccessfulAttack);
-        this.target.printGrid();
+        getTarget().printGrid();
     }
 }

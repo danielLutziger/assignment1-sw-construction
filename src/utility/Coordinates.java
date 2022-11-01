@@ -1,9 +1,7 @@
-package game;
+package utility;
 
-import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Coordinates {
     private Coordinate start;

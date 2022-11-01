@@ -1,6 +1,6 @@
 package grid;
 
-import game.Coordinates;
+import utility.Coordinates;
 import player.Player;
 import ship.Ship;
 import ship.ShipDirection;

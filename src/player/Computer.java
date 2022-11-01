@@ -1,6 +1,6 @@
 package player;
 
-import game.Coordinates;
+import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
 
@@ -46,7 +46,8 @@ public class Computer extends Player {
         }
         this.getOcean().printGrid();
     }
-    public void attack(Player enemy) {
+
+    public void attack(Human enemy) {
         System.out.println("Opponent enters coordinates");
         Random random = new Random();
         boolean unsuccessfulAttack = true;
@@ -63,6 +64,6 @@ public class Computer extends Player {
             }
             //TODO check if we hit something on target grid and display this
         } while(unsuccessfulAttack);
-        getTarget().printGrid();
+        //getTarget().printGrid();
     }
 }

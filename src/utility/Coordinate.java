@@ -45,7 +45,7 @@ public class Coordinate {
         //validate input
         assert coordinate.length() == 2;
         assert coordinate.charAt(0) >= min_x && coordinate.charAt(0) <= max_x;
-        assert coordinate.charAt(1) >= min_y && coordinate.charAt(1) <= max_y;
+        assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
         assert state != null;
 
         this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
@@ -78,9 +78,17 @@ public class Coordinate {
         currentState = state;
     }
 
+    public CoordinateState getState(){
+        return currentState;
+    }
+
     public void printState()
     {
         currentState.print(this);
     }
 
+    public boolean coordinateIsAccessible(Coordinate c){
+        if (c.getState() instanceof Empty) return true;
+        return false;
+    }
 }

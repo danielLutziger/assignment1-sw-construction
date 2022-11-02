@@ -6,8 +6,8 @@ public class Main {
 
         Human player = new Human();
         Computer ai = new Computer();
-        player.setShips();
-        ai.setShips();
+        player.shipPlacement();
+/*        ai.setShips();
         do {
             player.attack(ai);
             if (ai.isFleetDestroyed()){
@@ -20,7 +20,7 @@ public class Main {
                 break;
             }
         }while(true);
-
+*/
     }
 
 

@@ -1,48 +1,43 @@
 package grid;
 
 import ship.Ship;
+import utility.Coordinate;
+import utility.Empty;
+import utility.Occupy;
+
+import java.util.ArrayList;
 
 /**
  * the grid for the ocean showing the attacks
  */
 public class Ocean extends Grid{
 
-    /**
-     * @param ship: taking in the ship which has to be placed
-     * @return will return the new (with ship placement) grid
-     * @throws ShipPlacementCollisionException : will throw an exception if the placement was not successful, placement will in this case not take over the grid
-     */
-    public char[][] placeShip(Ship ship) {
-
-        ship.getStart()
-
-        char[][] localGrid = getGrid();
-        for(int coordinate_values = 0; coordinate_values < ship.getShipType().getShipLength(); coordinate_values++){
-            if (ship.getShipDirection() == ShipDirection.HORIZONTAL && isCoordinateAvailableForShipPlacement(getGrid()[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values])){
-                localGrid[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values] = ship.getShipType().getAbbreviation();
+    public boolean placeShip(Coordinate start, Coordinate end) {
+        //check if vertical or horizontal
+        //iterate through ship and check if all states are empty
+        //check if the coordinate state is empty
+        if(end.getX() > start.getX()){
+            for (int x = start.getX(); x <= end.getX(); x++){
+                if (!(getGrid()[x][start.getY()].getState() instanceof Empty)){
+                    return false;
+                }
             }
-            else if (ship.getShipDirection() == ShipDirection.VERTICAL && isCoordinateAvailableForShipPlacement(getGrid()[ship.getCoordinates().getStart().getX()+coordinate_values][ship.getCoordinates().getStart().getY()])){
-                localGrid[ship.getCoordinates().getStart().getX()+coordinate_values][ship.getCoordinates().getStart().getY()] = ship.getShipType().getAbbreviation();
-            }
-            else {
-                throw new ShipPlacementCollisionException("Ship placement was not successful. Please enter correct coordinates.");
+        } else {
+            for (int y = start.getY(); y <= end.getY(); y++){
+                if (!(getGrid()[start.getX()][y].getState() instanceof Empty)){
+                    return false;
+                }
             }
         }
-        //only overwrite grid if no exception is thrown => if the placement is valid
-        setGrid(localGrid);
-        return getGrid();
+        return true;
     }
 
-    /**
-     * @param placeOnGrid the content of the element where the element should be placed
-     * @return if the element is available
-     * @throws ShipPlacementCollisionException : in case the element is not available
-     */
-    public boolean isCoordinateAvailableForShipPlacement(char placeOnGrid) throws ShipPlacementCollisionException {
-        if (placeOnGrid == INIT_FILLER_VALUE){
-            return true;
-        } else {
-            throw new ShipPlacementCollisionException("Ship placement is not valid, another ship is already there!");
+    public void updateOcean(Ship ship){
+        //addShipToFleet
+        Coordinate[][] grid = getGrid();
+        for (Coordinate c : ship.getPlacement()){
+            grid[c.getX()][c.getY()] = c;
         }
+        this.setGrid(grid);
     }
 }

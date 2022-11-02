@@ -16,7 +16,8 @@ public class Ship {
 
     public Ship(Coordinate start, Coordinate end, ShipType shipType){
         // check if ship is vertical or horizontal (xor gateway)
-        assert (shipType.getShipLength()-1 == (end.getX() - start.getX()) ^ shipType.getShipLength()-1 == (end.getY() - start.getY()));
+        assert ((shipType.getShipLength()-1 == (end.getX() - start.getX()) && start.getY() == end.getY())
+                ^ (shipType.getShipLength()-1 == (end.getY() - start.getY()) && start.getX() == end.getX()));
         this.shipType = shipType;
         this.start = start;
         this.end = end;
@@ -53,4 +54,7 @@ public class Ship {
 
     public ShipType getShipType(){return this.shipType;}
 
+    public ArrayList<Coordinate> getPlacement() {
+        return placement;
+    }
 }

@@ -17,27 +17,26 @@ public class Human extends Player {
     public void shipPlacement() {
         for (ShipType shipType : ShipType.values()){
             for(int shipFromType = 0; shipFromType < shipType.getNumberOfShips(); shipFromType++){
-                boolean entered_unsuccessfully;
+                boolean entered_unsuccessfully = true;
                 do {
                     System.out.println("Where do you want to place your " + shipType + " (size: " + shipType.getShipLength() + ") (Ship no. " + (shipFromType + 1) + "/ " + shipType.getNumberOfShips() + ")\n" +
                             "Enter Start end End Coordinates (e.g. A1,A" + shipType.getShipLength() + ")");
                     try {
-                        //Coordinates coordinates = new Coordinates(new Scanner(System.in).next().split(","));
-                        //String[] coords = new Scanner(System.in).next().split(",");
+                        String[] coords = new Scanner(System.in).next().split(",");
                         //MOCK
-                        String[] coords = new Scanner(mockShipPlacement()).next().split(",");
+                        //String[] coords = new Scanner(mockShipPlacement()).next().split(",");
                         Coordinate start = new Coordinate(coords[0], new Occupy());
                         Coordinate end = new Coordinate(coords[1], new Occupy());
-                        Ship ship = new Ship(start, end, shipType);
-                        getOcean().placeShip(ship);
-                        addShip(ship);
-                        entered_unsuccessfully = false;
+                        // check ship placement
+                        if (this.getOcean().placeShip(start, end)){
+                            Ship ship = new Ship(start, end, shipType);
+                            addShip(ship);
+                            entered_unsuccessfully = false;
+                            getOcean().updateOcean(ship);
+                        }
                     } catch (Exception e) {
-                        System.out.println("\nPlease enter valid coordinates...\n\n");
-                        System.out.println("Specific error message");
                         System.out.println(e.getMessage());
                         System.out.println("\n\nEnter them again...\n");
-                        entered_unsuccessfully = true;
                     }
 
                 }while(entered_unsuccessfully);
@@ -52,7 +51,7 @@ public class Human extends Player {
             System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
                 Coordinates coordinate = new Coordinates(new Scanner(System.in).next());
-                getTarget().shipAttack(coordinate, enemy);
+                //getTarget().shipAttack(coordinate, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 System.out.println("\nPlease enter valid coordinates...\n\n");
@@ -70,7 +69,7 @@ public class Human extends Player {
         String[] pm = {"E9,J9",
                 "G0,J0",
                 "A2,A5",
-                "D0,D2",
+                "D2,F2",
                 "F2,H2",
                 "J5,J7",
                 "A0,B0",

@@ -1,10 +1,13 @@
 package player;
 
+import utility.Coordinate;
 import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
+import utility.Occupy;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Computer extends Player {
 
@@ -17,7 +20,7 @@ public class Computer extends Player {
             Random rand = new Random();
             int direction = rand.nextInt(2);
             for (int shipFromType = 0; shipFromType < shipType.getNumberOfShips(); shipFromType++) {
-                boolean entered_unsuccessfully;
+                boolean entered_unsuccessfully = true;
                 do {
                     try {
                         //generate random value
@@ -32,11 +35,14 @@ public class Computer extends Player {
                             randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                             randomX = rand.nextInt(getTarget().getGridSize());
                         }
-                        Coordinates coordinates = new Coordinates(direction, shipType.getShipLength(), randomX, randomY);
-                        Ship ship = new Ship(coordinates, shipType);
-                        getOcean().placeShip(ship); //placement validation still required! boats can be stacked over each other
-                        addShip(ship);
-                        entered_unsuccessfully = false;
+                        Coordinate start = new Coordinate(randomX, randomY, new Occupy());
+                        Coordinate end = new Coordinate(randomX, randomY, new Occupy());
+                        // check ship placement
+                        if (this.getOcean().placeShip(start, end)){
+                            Ship ship = new Ship(start, end, shipType);
+                            addShip(ship);
+                            entered_unsuccessfully = false;
+                        }
                     } catch (Exception e) {
                         entered_unsuccessfully = true;
                     }
@@ -57,7 +63,7 @@ public class Computer extends Player {
                 int x = random.nextInt(getTarget().getGridSize());
                 int y = random.nextInt(getTarget().getGridSize());
                 Coordinates coordinates = new Coordinates(x, y);
-                getTarget().shipAttack(coordinates, enemy);
+                //getTarget().shipAttack(coordinates, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 //coordinates were already attacked or anything. we do not want to write an output to not spam the user

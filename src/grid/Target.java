@@ -11,8 +11,7 @@ import java.util.ArrayList;
  */
 public class Target extends Grid{
 
-    private final char HIT = 'H';
-    private final char MISS = 'o';
+/*
     public char[][] shipAttack(Coordinates attack, Player enemy) throws ShipAlreadyAttackedException {
         Ocean enemyOcean = enemy.getOcean();
 
@@ -75,5 +74,5 @@ public class Target extends Grid{
         //only overwrite grid if no exception is thrown => if the placement is valid
         setGrid(localGrid);
         return getGrid();
-    }
+    }*/
 }

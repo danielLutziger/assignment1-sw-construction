@@ -1,14 +1,10 @@
 package grid;
 
-import game.Coordinates;
-import ship.Ship;
-import ship.ShipDirection;
-
 public abstract class Grid {
-    protected final int size = 10;
+    private final int size = 10;
     private char[][] grid;
 
-    protected final char INIT_FILLER_VALUE = 'X';
+    protected final char INIT_FILLER_VALUE = ' ';
 
     /**
      * Constructor of the grid
@@ -30,12 +26,24 @@ public abstract class Grid {
         return grid;
     }
 
+    public int getGridSize(){
+        return size;
+    }
+
     /**
      * Print the grid
      */
     public void printGrid(){
+        System.out.print("\n     A B C D E F G H I J");
+        System.out.print("\n=============================");
         for (int row = 0; row < size; row++){
-            System.out.println(grid[row]);
+            System.out.print("\n"+row+" | ");
+            for(int value = 0; value < 10; value++){
+                System.out.print(" " + grid[row][value]);
+            }
+            System.out.print(" | " + row);
         }
+        System.out.print("\n=============================\n");
+        System.out.print("     A B C D E F G H I J\n\n");
     }
 }

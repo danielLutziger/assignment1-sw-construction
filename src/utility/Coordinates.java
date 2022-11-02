@@ -1,13 +1,9 @@
-package game;
+package utility;
 
-import player.Human;
-
-import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
-public class Coordinates extends Human {
+public class Coordinates {
     private Coordinate start;
     private Coordinate end;
 
@@ -58,6 +54,12 @@ public class Coordinates extends Human {
             coordvalue = getKeyFromValue(randomY) + Integer.toString(randomX+shipLength-1);
         }
         this.end = placement(coordvalue);
+    }
+
+    public Coordinates(int x, int y) throws CoordinatesOutOfBoundsException {
+        //get key from value
+        String coordvalue = getKeyFromValue(x) + Integer.toString(y);
+        this.attack = placement(coordvalue);
     }
 
     private char getKeyFromValue(int value){

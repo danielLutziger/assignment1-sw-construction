@@ -1,6 +1,6 @@
 package player;
 
-import game.Coordinates;
+import utility.Coordinates;
 import ship.Ship;
 import ship.ShipDirectionNotValidException;
 import ship.ShipType;
@@ -41,7 +41,7 @@ public class Human extends ShipDirectionNotValidException {
         }
     }
 
-    public void attack(Player enemy) {
+    public void attack(Computer enemy) {
         boolean unsuccessfulAttack = true;
         do {
             System.out.println("Attack attack attack, Captain enter the coordinates");

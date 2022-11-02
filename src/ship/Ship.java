@@ -1,7 +1,7 @@
 package ship;
 
-import game.Coordinate;
-import game.Coordinates;
+import utility.Coordinate;
+import utility.Coordinates;
 
 public class Ship {
     private final Coordinates coordinates;

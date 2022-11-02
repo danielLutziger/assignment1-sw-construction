@@ -1,16 +1,29 @@
 package player;
 
+import grid.Ocean;
+import grid.Target;
 import utility.Coordinate;
 import ship.Ship;
 import ship.ShipType;
+import utility.CoordinateState;
+import utility.Empty;
 import utility.Occupied;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class Computer extends Player {
 
     public Computer() {
+
     }
+
+    private final HashMap<ShipType, CoordinateState> SHIP_STATE_MAPPING = new HashMap<ShipType, CoordinateState>() {{
+        put(ship.ShipType.CARRIER, utility.OccupiedCarrier.state());
+        put(ShipType.BATTLESHIP, utility.OccupiedBattleship.state());
+        put(ShipType.PATROL_BOAT, utility.OccupiedPatrol.state());
+        put(ShipType.SUBMARINE, utility.OccupiedSubmarine.state());
+    }};
 
     public void setShips() {
         for (ShipType shipType : ShipType.values()) {
@@ -18,6 +31,7 @@ public class Computer extends Player {
             Random rand = new Random();
             int direction = rand.nextInt(2);
             for (int shipFromType = 0; shipFromType < shipType.getNumberOfShips(); shipFromType++) {
+                System.out.println("Number of Ships:" + shipType.getAbbreviation() + shipType.getNumberOfShips());
                 boolean entered_unsuccessfully = true;
                 do {
                     try {
@@ -37,7 +51,17 @@ public class Computer extends Player {
                         Coordinate end = new Coordinate(randomX, randomY, Occupied.state());
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
-                            Ship ship = new Ship(start, end, shipType);
+                            Ship ship = new Ship(start, end, shipType); //use shiptype as states
+                            System.out.println("Ship Length:" + ship.getShipType().getShipLength());
+                            if(end.getX() > start.getX()){
+                                for (int x = randomX; x < randomX + ship.getShipType().getShipLength(); x++){
+                                    this.getOcean().setFieldState(x, end.getY(), SHIP_STATE_MAPPING.get(shipType));
+                                }
+                            } else {
+                                for (int y = randomY; y < randomY + ship.getShipType().getShipLength(); y++){
+                                    this.getOcean().setFieldState(end.getX(), y, SHIP_STATE_MAPPING.get(shipType));
+                                }
+                            }
                             addShip(ship);
                             entered_unsuccessfully = false;
                         }
@@ -54,21 +78,26 @@ public class Computer extends Player {
     public void attack(Human enemy) {
         System.out.println("Opponent enters coordinates");
         Random random = new Random();
+        int x;
+        int y;
         boolean unsuccessfulAttack = true;
         do {
-
             try {
-                int x = random.nextInt(getTarget().getGridSize());
-                int y = random.nextInt(getTarget().getGridSize());
-                //Coordinates coordinates = new Coordinates(x, y);
-                //Coordinates coordinates = new Coordinates(x, y);
-                //getTarget().shipAttack(coordinates, enemy);
+                x = random.nextInt(this.getTarget().getGridSize());
+                y = random.nextInt(this.getTarget().getGridSize());
+
+                //check if we already shoot at this place in target grid
+                if (this.getTarget().getGridValue(x, y).getState() != utility.Empty.state())
+                    throw new Exception("Already attacked!");
+                //check if there is a boat there and which one
+                if (enemy.getOcean().getGridValue(x, y).getState() == utility.Occupied.state())
+                    enemy.getOcean().setFieldState(x,y,utility.Hit.state());
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 //coordinates were already attacked or anything. we do not want to write an output to not spam the user
             }
-            //TODO check if we hit something on target grid and display this
         } while(unsuccessfulAttack);
-        //getTarget().printGrid();
+        System.out.println("Opponent Ocean");
+        getOcean().printGrid(); //dont show computer grid
     }
 }

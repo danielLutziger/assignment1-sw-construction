@@ -2,13 +2,14 @@ package grid;
 
 import utility.Coordinate;
 import utility.CoordinateState;
+import utility.Empty;
 import utility.Hit;
 
 public abstract class Grid {
-    private final int size = 10;
+    public final int size = 10;
     private Coordinate[][] grid;
 
-
+    //grid should only contain helper functions
     public Grid(){
         grid = new Coordinate[size][size];
         for (int row = 0; row < size; row++){
@@ -27,6 +28,15 @@ public abstract class Grid {
 
     public Coordinate getGridValue(Coordinate coordinate){
         return grid[coordinate.getX()][coordinate.getY()];
+    }
+
+    public Coordinate getGridValue(int x, int y){
+        return grid[x][y];
+    }
+
+    //bad practice to give access to grid but???
+    public void setFieldState(int x, int y, CoordinateState state){
+        this.grid[x][y].setState(state);
     }
 
 

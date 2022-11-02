@@ -70,6 +70,17 @@ public class Coordinate {
         this.currentState = state;
     }
 
+    //coordinate constructor without changing state
+    public Coordinate(int x, int y, grid.Grid grid) {
+        //validate input
+        assert x >= 0 && x <= 9;
+        assert y >= 0 && y <= 9;
+
+        this.x = x;
+        this.y = y;
+        this.currentState = grid.getGridValue(x,y).getState();
+    }
+
     /**
      * Initialize a coordinate for a human
      * @param coordinate a single coordinate
@@ -82,7 +93,18 @@ public class Coordinate {
 
         this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
         this.y = Character.getNumericValue(coordinate.charAt(1));
-        this.currentState = null;
+        this.currentState = null; //doesn't this fuck up the state?
+    }
+
+    public Coordinate(String coordinate, grid.Grid grid) {
+        //validate input
+        assert coordinate.length() == 2;
+        assert coordinate.charAt(0) >= min_x && coordinate.charAt(0) <= max_x;
+        assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
+
+        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
+        this.y = Character.getNumericValue(coordinate.charAt(1));
+        this.currentState = grid.getGridValue(x,y).getState();
     }
 
     public int getX(){return this.x;}

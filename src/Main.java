@@ -6,33 +6,37 @@ import utility.CoordinateState;
 public class Main {
     public static void main(String[] args) {
 
-        Human player = new Human();
-        Human ai = new Human();
-        player.shipPlacement();
+        //initialize field with all empty coordinates in
+        Human human = new Human();
+        Computer computer = new Computer();
+        //move to constructor
+        human.setShips();
+        computer.setShips();
+        //where are the ocean and target grid for each player created???
 
-        Coordinate c = ai.attack();
-        CoordinateState cs = player.underAttack(c);
+        /*Coordinate c = computer.attack();
+        CoordinateState cs = human.underAttack(c);
         c.setState(cs);
-        ai.updateTarget(c);
+        computer.updateTarget(c);
 
-        c = ai.attack();
-        cs = player.underAttack(c);
+        c = computer.attack();
+        cs = human.underAttack(c);
         c.setState(cs);
-        ai.updateTarget(c);
-/*        ai.setShips();
-        do {
-            player.attack(ai);
-            if (ai.isFleetDestroyed()){
+        computer.updateTarget(c);*/
+
+
+     do {
+            human.attack(computer);
+            if (computer.isFleetDestroyed()){
                 System.out.println("Winner is player");
                 break;
             }
-            ai.attack(player);
-            if (player.isFleetDestroyed()){
-                System.out.println("Winner is AI");
+            computer.attack(human);
+            if (human.isFleetDestroyed()){
+                System.out.println("Winner is computer");
                 break;
             }
         }while(true);
-*/
     }
 
 

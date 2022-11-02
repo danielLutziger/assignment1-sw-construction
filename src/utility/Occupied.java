@@ -1,5 +1,6 @@
 package utility;
 
+//can be deleted
 public class Occupied implements CoordinateState {
     private static Occupied state;
 
@@ -11,6 +12,7 @@ public class Occupied implements CoordinateState {
         }
         return state;
     }
+
     @Override
     public void updateState(Coordinate context)
     {

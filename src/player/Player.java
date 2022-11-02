@@ -3,15 +3,24 @@ package player;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
+import ship.ShipType;
 import utility.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Player {
     private Ocean ocean;
-    private Target target; //changed to public to use in inheriting class
+    private Target target;
     private ArrayList<Ship> ships;
+
+    public final HashMap<ShipType, CoordinateState> SHIP_STATE_MAPPING = new HashMap<ShipType, CoordinateState>() {{
+        put(ship.ShipType.CARRIER, utility.OccupiedCarrier.state());
+        put(ShipType.BATTLESHIP, utility.OccupiedBattleship.state());
+        put(ShipType.PATROL_BOAT, utility.OccupiedPatrol.state());
+        put(ShipType.SUBMARINE, utility.OccupiedSubmarine.state());
+    }};
 
     public Player(){
         this.ocean = new Ocean();
@@ -43,8 +52,8 @@ public abstract class Player {
     }
 
     public CoordinateState underAttack(Coordinate coordinate){
-        if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
-            Ship s = getShipFromCoordinate(coordinate);
+        if (this.ocean.getGridValue(coordinate).getState() instanceof Occupied) {
+            Ship s = this.getShipFromCoordinate(coordinate);
             s.shipGotHit();
             return Hit.state();
         }

@@ -9,7 +9,6 @@ public class Ship {
     private final Coordinate start;
     private final Coordinate end;
 
-    private final ArrayList<Coordinate> placement;
     private final ShipType shipType;
     private int health;
 
@@ -21,19 +20,6 @@ public class Ship {
         this.start = start;
         this.end = end;
         this.health = shipType.getShipLength();
-
-        placement = new ArrayList<>();
-        placement.add(start);
-        if(end.getX() > start.getX()){
-            for (int x = start.getX()+1; x < end.getX(); x++){
-                placement.add(new Coordinate(x, end.getY(), Occupied.state()));
-            }
-        } else {
-            for (int y = start.getY()+1; y < end.getY(); y++){
-                placement.add(new Coordinate(end.getX(), y, Occupied.state()));
-            }
-        }
-        placement.add(end);
     }
 
     public int getHealth(){
@@ -53,8 +39,8 @@ public class Ship {
 
     public ShipType getShipType(){return this.shipType;}
 
-    public ArrayList<Coordinate> getPlacement() {
-        return placement;
-    }
+    //public ArrayList<Coordinate> getPlacement() {
+    //    return placement;
+    //}
 
 }

@@ -11,6 +11,22 @@ import utility.Occupied;
  */
 public class Ocean extends Grid{
 
+    private final int size = 10;
+    private Coordinate[][] grid;
+
+
+    //no constructor
+    //constructor sets the coordinate states
+    public Ocean(){
+        grid = new Coordinate[size][size];
+        for (int row = 0; row < size; row++){
+            for(int column = 0; column < size; column++){
+                grid[row][column] = new Coordinate(row, column);
+            }
+        }
+    }
+    //use hit.updateState()
+
     public boolean placeShip(Coordinate start, Coordinate end) {
         //check if vertical or horizontal
         //iterate through ship and check if all states are empty

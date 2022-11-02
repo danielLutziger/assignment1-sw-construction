@@ -1,9 +1,9 @@
 package player;
 
 import utility.Coordinate;
-import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
+import utility.Empty;
 import utility.Occupied;
 
 import java.io.ByteArrayInputStream;
@@ -45,12 +45,13 @@ public class Human extends Player {
         }
     }
 
-    public void attack(Computer enemy) {
+    public Coordinate attack() {
         boolean unsuccessfulAttack = true;
+        Coordinate coordinate = null;
         do {
             System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
-                Coordinates coordinate = new Coordinates(new Scanner(System.in).next());
+                coordinate = new Coordinate(new Scanner(System.in).next(), Empty.state());
                 //getTarget().shipAttack(coordinate, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {
@@ -60,7 +61,8 @@ public class Human extends Player {
                 System.out.println("\n\nEnter them again...\n");
             }
         } while(unsuccessfulAttack);
-        this.getTarget().printGrid();
+
+        return coordinate;
     }
 
     private int counter = -1;

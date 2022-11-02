@@ -2,6 +2,7 @@ package grid;
 
 import ship.Ship;
 import utility.Coordinate;
+import utility.CoordinateState;
 import utility.Empty;
 
 /**

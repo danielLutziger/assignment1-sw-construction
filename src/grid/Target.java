@@ -1,10 +1,6 @@
 package grid;
 
-import utility.Coordinates;
-import player.Player;
-import ship.Ship;
-
-import java.util.ArrayList;
+import utility.Coordinate;
 
 /**
  * the grid for the targets showing the own placements

@@ -2,6 +2,7 @@ package grid;
 
 import utility.Coordinate;
 import utility.CoordinateState;
+import utility.Hit;
 
 public abstract class Grid {
     private final int size = 10;
@@ -24,13 +25,15 @@ public abstract class Grid {
         return grid;
     }
 
+    public Coordinate getGridValue(Coordinate coordinate){
+        return grid[coordinate.getX()][coordinate.getY()];
+    }
+
+
     public int getGridSize(){
         return size;
     }
 
-    public void updateState(CoordinateState c){
-
-    }
     /**
      * Print the grid
      */
@@ -40,7 +43,7 @@ public abstract class Grid {
         for (int row = 0; row < size; row++){
             System.out.print("\n"+row+" | ");
             for(int value = 0; value < 10; value++){
-                System.out.print(" " + grid[row][value]);
+                System.out.print(" " + grid[row][value].getState().toString());
             }
             System.out.print(" | " + row);
         }

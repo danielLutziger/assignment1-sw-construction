@@ -1,7 +1,6 @@
 package player;
 
 import utility.Coordinate;
-import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
 import utility.Occupied;
@@ -61,7 +60,8 @@ public class Computer extends Player {
             try {
                 int x = random.nextInt(getTarget().getGridSize());
                 int y = random.nextInt(getTarget().getGridSize());
-                Coordinates coordinates = new Coordinates(x, y);
+                //Coordinates coordinates = new Coordinates(x, y);
+                //Coordinates coordinates = new Coordinates(x, y);
                 //getTarget().shipAttack(coordinates, enemy);
                 unsuccessfulAttack = false;
             } catch (Exception e) {

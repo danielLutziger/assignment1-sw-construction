@@ -1,5 +1,7 @@
 import player.Computer;
 import player.Human;
+import utility.Coordinate;
+import utility.CoordinateState;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,6 +9,15 @@ public class Main {
         Human player = new Human();
         Computer ai = new Computer();
         player.shipPlacement();
+        Coordinate c = player.attack();
+        CoordinateState cs = ai.underAttack(c);
+        c.setState(cs);
+        player.updateTarget(c);
+        c = player.attack();
+        cs = ai.underAttack(c);
+        c.setState(cs);
+        player.updateTarget(c);
+
 /*        ai.setShips();
         do {
             player.attack(ai);

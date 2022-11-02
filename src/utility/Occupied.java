@@ -17,4 +17,8 @@ public class Occupied implements CoordinateState {
         System.out.println("Occupied");
         context.setState(Occupied.state());
     }
+    @Override
+    public String toString(){
+        return "O";
+    }
 }

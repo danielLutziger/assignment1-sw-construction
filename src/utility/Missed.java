@@ -17,4 +17,8 @@ public class Missed implements CoordinateState {
         System.out.println("Missed");
         context.setState(Missed.state());
     }
+    @Override
+    public String toString(){
+        return "o";
+    }
 }

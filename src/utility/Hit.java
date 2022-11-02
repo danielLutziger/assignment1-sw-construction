@@ -19,4 +19,8 @@ public class Hit implements CoordinateState {
         System.out.println("Hit");
         context.setState(Hit.state());
     }
+    @Override
+    public String toString(){
+        return "X";
+    }
 }

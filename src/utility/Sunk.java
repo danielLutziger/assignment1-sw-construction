@@ -19,4 +19,8 @@ public class Sunk implements CoordinateState {
         System.out.println("Sunk");
         context.setState(Sunk.state());
     }
+    @Override
+    public String toString(){
+        return "S";
+    }
 }

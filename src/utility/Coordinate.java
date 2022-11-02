@@ -70,6 +70,21 @@ public class Coordinate {
         this.currentState = state;
     }
 
+    /**
+     * Initialize a coordinate for a human
+     * @param coordinate a single coordinate
+     */
+    public Coordinate(String coordinate) {
+        //validate input
+        assert coordinate.length() == 2;
+        assert coordinate.charAt(0) >= min_x && coordinate.charAt(0) <= max_x;
+        assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
+
+        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
+        this.y = Character.getNumericValue(coordinate.charAt(1));
+        this.currentState = null;
+    }
+
     public int getX(){return this.x;}
     public int getY(){return this.y;}
 
@@ -80,11 +95,6 @@ public class Coordinate {
 
     public CoordinateState getState(){
         return currentState;
-    }
-
-    public void printState()
-    {
-        currentState.updateState(this);
     }
 
     public boolean coordinateIsAccessible(Coordinate c){

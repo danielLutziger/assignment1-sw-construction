@@ -18,4 +18,9 @@ public class Empty implements CoordinateState {
         System.out.println("Empty");
         context.setState(Empty.state());
     }
+
+    @Override
+    public String toString(){
+        return " ";
+    }
 }

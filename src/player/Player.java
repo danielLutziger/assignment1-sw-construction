@@ -3,6 +3,8 @@ package player;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
+import utility.*;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -38,5 +40,16 @@ public abstract class Player {
         } else {
             return true;
         }
+    }
+
+    public CoordinateState underAttack(Coordinate coordinate){
+        if (ocean.getGridValue(coordinate).getState() instanceof Occupied) return Hit.state();
+        return Missed.state();
+    }
+
+    public void updateTarget(Coordinate coordinate){
+        Coordinate c = target.getGridValue(coordinate);
+        c.setState(coordinate.getState());
+        target.printGrid();
     }
 }

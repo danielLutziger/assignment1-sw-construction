@@ -22,9 +22,9 @@ public class Human extends Player {
                     System.out.println("Where do you want to place your " + shipType + " (size: " + shipType.getShipLength() + ") (Ship no. " + (shipFromType + 1) + "/ " + shipType.getNumberOfShips() + ")\n" +
                             "Enter Start end End Coordinates (e.g. A1,A" + shipType.getShipLength() + ")");
                     try {
-                        String[] coords = new Scanner(System.in).next().split(",");
+                        //String[] coords = new Scanner(System.in).next().split(",");
                         //MOCK
-                        //String[] coords = new Scanner(mockShipPlacement()).next().split(",");
+                        String[] coords = new Scanner(mockShipPlacement()).next().split(",");
                         Coordinate start = new Coordinate(coords[0], new Occupy());
                         Coordinate end = new Coordinate(coords[1], new Occupy());
                         // check ship placement
@@ -70,7 +70,7 @@ public class Human extends Player {
                 "G0,J0",
                 "A2,A5",
                 "D2,F2",
-                "F2,H2",
+                "G3,I3",
                 "J5,J7",
                 "A0,B0",
                 "A7,B7",

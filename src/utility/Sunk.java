@@ -3,9 +3,20 @@ package utility;
 import grid.Grid;
 
 public class Sunk implements CoordinateState {
-    private char state = 's';
+    private static Sunk state;
+
+    private Sunk(){}
+
+    public static Sunk state() {
+        if(state == null){
+            state = new Sunk();
+        }
+        return state;
+    }
     @Override
-    public void print(Coordinate coordinate) {
-        System.out.println("SUNK");
+    public void updateState(Coordinate context)
+    {
+        System.out.println("Sunk");
+        context.setState(Sunk.state());
     }
 }

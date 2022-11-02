@@ -1,11 +1,21 @@
 package utility;
 
-import grid.Grid;
 
 public class Empty implements CoordinateState {
-    private char state = ' ';
+    private static Empty state;
+
+    private Empty(){}
+
+    public static Empty state() {
+        if(state == null){
+            state = new Empty();
+        }
+        return state;
+    }
     @Override
-    public void print(Coordinate coordinate) {
-        System.out.println("EMPTY");
+    public void updateState(Coordinate context)
+    {
+        System.out.println("Empty");
+        context.setState(Empty.state());
     }
 }

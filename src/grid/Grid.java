@@ -1,6 +1,7 @@
 package grid;
 
 import utility.Coordinate;
+import utility.CoordinateState;
 
 public abstract class Grid {
     private final int size = 10;
@@ -27,6 +28,9 @@ public abstract class Grid {
         return size;
     }
 
+    public void updateState(CoordinateState c){
+
+    }
     /**
      * Print the grid
      */

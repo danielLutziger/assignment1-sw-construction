@@ -4,10 +4,9 @@ import utility.Coordinate;
 import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
-import utility.Occupy;
+import utility.Occupied;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Computer extends Player {
 
@@ -35,8 +34,8 @@ public class Computer extends Player {
                             randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                             randomX = rand.nextInt(getTarget().getGridSize());
                         }
-                        Coordinate start = new Coordinate(randomX, randomY, new Occupy());
-                        Coordinate end = new Coordinate(randomX, randomY, new Occupy());
+                        Coordinate start = new Coordinate(randomX, randomY, Occupied.state());
+                        Coordinate end = new Coordinate(randomX, randomY, Occupied.state());
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             Ship ship = new Ship(start, end, shipType);

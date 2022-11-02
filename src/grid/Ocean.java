@@ -3,9 +3,6 @@ package grid;
 import ship.Ship;
 import utility.Coordinate;
 import utility.Empty;
-import utility.Occupy;
-
-import java.util.ArrayList;
 
 /**
  * the grid for the ocean showing the attacks

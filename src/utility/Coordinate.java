@@ -33,7 +33,7 @@ public class Coordinate {
     public Coordinate(int y_coordinate, int x_coordinate){
         this.x = x_coordinate;
         this.y = y_coordinate;
-        this.currentState = new Empty();
+        this.currentState = Empty.state();
     }
 
     /**
@@ -84,7 +84,7 @@ public class Coordinate {
 
     public void printState()
     {
-        currentState.print(this);
+        currentState.updateState(this);
     }
 
     public boolean coordinateIsAccessible(Coordinate c){

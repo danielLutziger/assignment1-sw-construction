@@ -4,6 +4,7 @@ import ship.Ship;
 import utility.Coordinate;
 import utility.CoordinateState;
 import utility.Empty;
+import utility.Occupied;
 
 /**
  * the grid for the ocean showing the attacks
@@ -33,8 +34,15 @@ public class Ocean extends Grid{
     public void updateOcean(Ship ship){
         //addShipToFleet
         Coordinate[][] grid = getGrid();
-        for (Coordinate c : ship.getPlacement()){
-            grid[c.getX()][c.getY()] = c;
+
+        if(ship.getEnd().getX() > ship.getStart().getX()){
+            for (int x = ship.getStart().getX()+1; x < ship.getEnd().getX(); x++){
+                grid[x][ship.getStart().getY()].setState(Occupied.state());
+            }
+        } else {
+            for (int y = ship.getStart().getY()+1; y < ship.getEnd().getY(); y++){
+                grid[ship.getStart().getX()][y].setState(Occupied.state());
+            }
         }
         this.setGrid(grid);
     }

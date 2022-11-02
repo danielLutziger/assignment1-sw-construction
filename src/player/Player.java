@@ -43,7 +43,11 @@ public abstract class Player {
     }
 
     public CoordinateState underAttack(Coordinate coordinate){
-        if (ocean.getGridValue(coordinate).getState() instanceof Occupied) return Hit.state();
+        if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
+            Ship s = getShipFromCoordinate(coordinate);
+            s.shipGotHit();
+            return Hit.state();
+        }
         return Missed.state();
     }
 
@@ -51,5 +55,16 @@ public abstract class Player {
         Coordinate c = target.getGridValue(coordinate);
         c.setState(coordinate.getState());
         target.printGrid();
+    }
+
+    public Ship getShipFromCoordinate(Coordinate c){
+        for(Ship s : ships){
+            for(Coordinate shipCord : s.getPlacement()){
+                if(shipCord.getX() == c.getX() && shipCord.getY() == c.getY()){
+                    return s;
+                }
+            }
+        }
+        return null;
     }
 }

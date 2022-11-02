@@ -7,17 +7,18 @@ public class Main {
     public static void main(String[] args) {
 
         Human player = new Human();
-        Computer ai = new Computer();
+        Human ai = new Human();
         player.shipPlacement();
-        Coordinate c = player.attack();
-        CoordinateState cs = ai.underAttack(c);
-        c.setState(cs);
-        player.updateTarget(c);
-        c = player.attack();
-        cs = ai.underAttack(c);
-        c.setState(cs);
-        player.updateTarget(c);
 
+        Coordinate c = ai.attack();
+        CoordinateState cs = player.underAttack(c);
+        c.setState(cs);
+        ai.updateTarget(c);
+
+        c = ai.attack();
+        cs = player.underAttack(c);
+        c.setState(cs);
+        ai.updateTarget(c);
 /*        ai.setShips();
         do {
             player.attack(ai);

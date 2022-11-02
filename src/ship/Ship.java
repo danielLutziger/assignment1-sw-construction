@@ -56,4 +56,5 @@ public class Ship {
     public ArrayList<Coordinate> getPlacement() {
         return placement;
     }
+
 }

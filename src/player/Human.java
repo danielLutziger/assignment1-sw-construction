@@ -2,13 +2,14 @@ package player;
 
 import game.Coordinates;
 import ship.Ship;
+import ship.ShipDirectionNotValidException;
 import ship.ShipType;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class Human extends Player{
+public class Human extends ShipDirectionNotValidException {
 
     public Human(){}
     public void setShips() {

@@ -1,11 +1,13 @@
 package game;
 
+import player.Human;
+
 import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Coordinates {
+public class Coordinates extends Human {
     private Coordinate start;
     private Coordinate end;
 

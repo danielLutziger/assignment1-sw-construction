@@ -1,28 +1,25 @@
 package grid;
 
+import utility.Coordinate;
+
 public abstract class Grid {
     private final int size = 10;
-    private char[][] grid;
+    private Coordinate[][] grid;
 
-    protected final char INIT_FILLER_VALUE = ' ';
 
-    /**
-     * Constructor of the grid
-     * Fill the grid with 'X' values
-     */
     public Grid(){
-        grid = new char[this.size][this.size];
+        grid = new Coordinate[size][size];
         for (int row = 0; row < size; row++){
             for(int column = 0; column < size; column++){
-                grid[row][column] = INIT_FILLER_VALUE;
+                grid[row][column] = new Coordinate(row, column);
             }
         }
     }
 
-    protected void setGrid(char[][] grid){
+    protected void setGrid(Coordinate[][] grid){
         this.grid = grid;
     }
-    protected char[][] getGrid(){
+    protected Coordinate[][] getGrid(){
         return grid;
     }
 

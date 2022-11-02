@@ -3,7 +3,6 @@ package grid;
 import utility.Coordinates;
 import player.Player;
 import ship.Ship;
-import ship.ShipDirection;
 
 import java.util.ArrayList;
 

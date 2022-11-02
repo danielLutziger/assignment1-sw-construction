@@ -1,7 +1,6 @@
 package grid;
 
 import ship.Ship;
-import ship.ShipDirection;
 
 /**
  * the grid for the ocean showing the attacks
@@ -13,7 +12,10 @@ public class Ocean extends Grid{
      * @return will return the new (with ship placement) grid
      * @throws ShipPlacementCollisionException : will throw an exception if the placement was not successful, placement will in this case not take over the grid
      */
-    public char[][] placeShip(Ship ship) throws ShipPlacementCollisionException {
+    public char[][] placeShip(Ship ship) {
+
+        ship.getStart()
+
         char[][] localGrid = getGrid();
         for(int coordinate_values = 0; coordinate_values < ship.getShipType().getShipLength(); coordinate_values++){
             if (ship.getShipDirection() == ShipDirection.HORIZONTAL && isCoordinateAvailableForShipPlacement(getGrid()[ship.getCoordinates().getStart().getX()][ship.getCoordinates().getStart().getY()+coordinate_values])){

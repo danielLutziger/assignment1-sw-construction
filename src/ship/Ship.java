@@ -2,44 +2,38 @@ package ship;
 
 import utility.Coordinate;
 import utility.Coordinates;
+import utility.Occupy;
+
+import java.util.ArrayList;
 
 public class Ship {
-    private final Coordinates coordinates;
-    private ShipDirection shipDirection;
-    private final ShipType shipType;
+    private final Coordinate start;
+    private final Coordinate end;
 
+    private final ArrayList<Coordinate> placement;
+    private final ShipType shipType;
     private int health;
 
-    public Ship(Coordinates coordinates, ShipType shipType) throws ShipDirectionNotValidException{
-        this.coordinates = coordinates;
+    public Ship(Coordinate start, Coordinate end, ShipType shipType){
+        // check if ship is vertical or horizontal (xor gateway)
+        assert (shipType.getShipLength()-1 == (end.getX() - start.getX()) ^ shipType.getShipLength()-1 == (end.getY() - start.getY()));
         this.shipType = shipType;
-        if (isPlacementValid(coordinates.getStart(), coordinates.getEnd(), shipType.getShipLength())){
-            this.shipDirection = getShipDirectionFromPlacement(coordinates.getStart(), coordinates.getEnd());
-        }
+        this.start = start;
+        this.end = end;
         this.health = shipType.getShipLength();
-    }
-    private boolean isPlacementValid(Coordinate start, Coordinate end, int shipLength) throws ShipDirectionNotValidException{
-        if(start.getX() == end.getX()){
-            if((start.getY()+shipLength-1) == end.getY()){ //1+6 = 7
-                return true;
-            } else {
-                throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");
-            }
-        } else if (start.getY() == end.getY()){
-            if((start.getX()+shipLength-1) == end.getX()){
-                return true;
-            } else {
-                throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");            }
-        } else{
-            throw new ShipDirectionNotValidException("Ship direction is not valid or the ship entered does not match the length! You can only place it Vertical or Horizontal!");        }
-    }
 
-    private ShipDirection getShipDirectionFromPlacement(Coordinate start, Coordinate end){
-        if (start.getX() < end.getX()){
-            return ShipDirection.VERTICAL;
+        placement = new ArrayList<>();
+        placement.add(start);
+        if(end.getX() > start.getX()){
+            for (int x = start.getX()+1; x < end.getX(); x++){
+                placement.add(new Coordinate(x, end.getY(), new Occupy()));
+            }
         } else {
-            return ShipDirection.HORIZONTAL;
+            for (int y = start.getY()+1; y < end.getY(); y++){
+                placement.add(new Coordinate(end.getX(), y, new Occupy()));
+            }
         }
+        placement.add(end);
     }
 
     public int getHealth(){
@@ -48,7 +42,15 @@ public class Ship {
     public void shipGotHit(){
         health--;
     }
-    public Coordinates getCoordinates(){return this.coordinates;}
-    public ShipDirection getShipDirection(){return this.shipDirection;}
+
+    public Coordinate getStart() {
+        return start;
+    }
+
+    public Coordinate getEnd() {
+        return end;
+    }
+
     public ShipType getShipType(){return this.shipType;}
+
 }

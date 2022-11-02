@@ -1,8 +1,10 @@
 package player;
 
+import utility.Coordinate;
 import utility.Coordinates;
 import ship.Ship;
 import ship.ShipType;
+import utility.Occupy;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -11,7 +13,8 @@ import java.util.Scanner;
 public class Human extends Player {
 
     public Human(){}
-    public void setShips() {
+
+    public void shipPlacement() {
         for (ShipType shipType : ShipType.values()){
             for(int shipFromType = 0; shipFromType < shipType.getNumberOfShips(); shipFromType++){
                 boolean entered_unsuccessfully;
@@ -20,10 +23,13 @@ public class Human extends Player {
                             "Enter Start end End Coordinates (e.g. A1,A" + shipType.getShipLength() + ")");
                     try {
                         //Coordinates coordinates = new Coordinates(new Scanner(System.in).next().split(","));
+                        //String[] coords = new Scanner(System.in).next().split(",");
                         //MOCK
-                        Coordinates coordinates = new Coordinates(new Scanner(mockShipPlacement()).next().split(","));
-                        Ship ship = new Ship(coordinates, shipType);
-                        getOcean().placeShip(ship); //placement validation still required! boats can be stacked over each other
+                        String[] coords = new Scanner(mockShipPlacement()).next().split(",");
+                        Coordinate start = new Coordinate(coords[0], new Occupy());
+                        Coordinate end = new Coordinate(coords[1], new Occupy());
+                        Ship ship = new Ship(start, end, shipType);
+                        getOcean().placeShip(ship);
                         addShip(ship);
                         entered_unsuccessfully = false;
                     } catch (Exception e) {

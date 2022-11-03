@@ -19,6 +19,7 @@ public class GameOperator {
 
         TurnState turns = TurnState.randomStart();
         GameState gameState = GameState.RUNNING;
+
         do{
             if(turns.equals(TurnState.PLAYER_TURN)){
                 if (attackSequence(player, ai)){
@@ -31,6 +32,14 @@ public class GameOperator {
             }
             turns = TurnState.getOtherState(turns);
         }while(gameState.equals(GameState.RUNNING));
+        System.out.println(gameState);
+
+        //winner ocean anzeigen
+        if(turns.equals(TurnState.PLAYER_TURN)){
+            gameEndSequence(player);
+        }else{
+            gameEndSequence(ai);
+        }
     }
     public boolean attackSequence(Player attacker, Player defender){
         Coordinate c = attacker.attack();
@@ -49,5 +58,9 @@ public class GameOperator {
         if (gameOperator == null){
             new GameOperator();
         }
+    }
+
+    public void gameEndSequence(Player attacker){
+        attacker.drawOcean();
     }
 }

@@ -50,6 +50,7 @@ public abstract class Player {
         if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
             Ship s = getShipFromCoordinate(coordinate);
             s.shipGotHit();
+            coordinate.setState(Hit.state());
             if (s.getHealth() == 0){
                 return new Sunk(s.getShipType());
             } else {
@@ -57,6 +58,7 @@ public abstract class Player {
             }
 
         }
+        coordinate.setState(Missed.state());
         return Missed.state();
     }
 
@@ -88,5 +90,8 @@ public abstract class Player {
 
     public void drawTarget(){
         this.target.printGrid();
+    }
+    public void drawOcean(){
+        this.ocean.printGrid();
     }
 }

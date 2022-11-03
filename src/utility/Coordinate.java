@@ -30,7 +30,7 @@ public class Coordinate {
      * @param y_coordinate
      * @param x_coordinate
      */
-    public Coordinate(int y_coordinate, int x_coordinate){
+    public Coordinate(int x_coordinate, int y_coordinate){
         this.x = x_coordinate;
         this.y = y_coordinate;
         this.currentState = Empty.state();
@@ -48,8 +48,8 @@ public class Coordinate {
         assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
         assert state != null;
 
-        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
-        this.y = Character.getNumericValue(coordinate.charAt(1));
+        this.y = COORDINATE_MAPPING.get(coordinate.charAt(0)); //here x and y inverted but it only works properly like this
+        this.x = Character.getNumericValue(coordinate.charAt(1));
         this.currentState = state;
     }
 

@@ -9,6 +9,7 @@ import utility.CoordinateState;
 import utility.Empty;
 import utility.Occupied;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -17,6 +18,8 @@ public class Computer extends Player {
     public Computer() {
 
     }
+
+    ArrayList<Ship> ships;
 
     private final HashMap<ShipType, CoordinateState> SHIP_STATE_MAPPING = new HashMap<ShipType, CoordinateState>() {{
         put(ship.ShipType.CARRIER, utility.OccupiedCarrier.state());
@@ -52,6 +55,7 @@ public class Computer extends Player {
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             Ship ship = new Ship(start, end, shipType); //use shiptype as states
+                            ships.add(ship);
                             System.out.println("Ship Length:" + ship.getShipType().getShipLength());
                             if(end.getX() > start.getX()){
                                 for (int x = randomX; x < randomX + ship.getShipType().getShipLength(); x++){
@@ -97,7 +101,7 @@ public class Computer extends Player {
                 //coordinates were already attacked or anything. we do not want to write an output to not spam the user
             }
         } while(unsuccessfulAttack);
-        System.out.println("Opponent Ocean");
+        System.out.println("Opponent Ocean:\n");
         getOcean().printGrid(); //dont show computer grid
     }
 }

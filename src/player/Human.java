@@ -6,15 +6,16 @@ import ship.ShipType;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Human extends Player {
 
     public Human(){
 
     }
+
+    ArrayList<Ship> ships = new ArrayList<Ship>();
+
     private final HashMap<ShipType, CoordinateState> SHIP_STATE_MAPPING = new HashMap<ShipType, CoordinateState>() {{
         put(ship.ShipType.CARRIER, utility.OccupiedCarrier.state());
         put(ShipType.BATTLESHIP, utility.OccupiedBattleship.state());
@@ -47,9 +48,11 @@ public class Human extends Player {
                         String[] coords = new Scanner(mockShipPlacement()).next().split(",");
                         Coordinate start = new Coordinate(coords[0], Occupied.state());
                         Coordinate end = new Coordinate(coords[1], Occupied.state());
+                        System.out.println("Coordinates: Start:" + start.getX() + start.getY()+ " End: "+ end.getX() + end.getY());
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){ //there might be some error in placeShip
                             Ship ship = new Ship(start, end, shipType);
+                            ships.add(ship);
                             System.out.println("Ship Length:" + ship.getShipType().getShipLength());
                             if(end.getX() > start.getX()){
                                 for (int x = start.getX(); x < start.getX() + ship.getShipType().getShipLength(); x++){
@@ -69,9 +72,10 @@ public class Human extends Player {
                     }
 
                 }while(entered_unsuccessfully);
-                //this.getOcean().printGrid();
+                this.getOcean().printGrid();
             }
         }
+        System.out.println("Human Ocean:\n");
         this.getOcean().printGrid();
     }
 
@@ -114,6 +118,47 @@ public class Human extends Player {
                     this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y, utility.Hit.state());
                     //check if we hit all fields from a boat
                     //compare your hits with the boat at enemy target
+                    //get the ship objects
+                    //go through enemy .ships
+                    Iterator<Ship> shipIterator = ships.iterator();
+                    for(int i=0; i < ships.size(); ++i){
+                        Ship currentShip = shipIterator.next();
+                        Coordinate start = currentShip.getStart();
+                        Coordinate end = currentShip.getEnd();
+                        //if on grid all of the fields between
+
+                        boolean fullShipHit = true;
+                        if(end.getX() > start.getX()){
+                            for (int x_ship = start.getX(); x_ship < end.getX(); x_ship++){
+                                if(this.getTarget().getGridValue(x_ship,start.getY()).getState() != utility.Hit.state()){
+                                    fullShipHit = false;
+                                }
+                            }
+                        } else {
+                            for (int y_ship = start.getY(); y_ship < end.getY(); y_ship++){
+                                if(this.getTarget().getGridValue(start.getX(),y_ship).getState() != utility.Hit.state()){
+                                    fullShipHit = false;
+                                }
+                            }
+                        }
+                        if (fullShipHit){
+                            if(end.getX() > start.getX()){
+                                for (int x_ship = start.getX(); x_ship < end.getX(); x_ship++){
+                                    this.getTarget().setFieldState(x_ship,start.getY(), SHIP_STATE_MAPPING.get(currentShip));
+                                }
+                            } else {
+                                for (int y_ship = start.getY(); y_ship < end.getY(); y_ship++){
+                                    this.getTarget().setFieldState(start.getX(),y_ship, SHIP_STATE_MAPPING.get(currentShip));
+                                }
+                            }
+                        }
+                    }
+                    //if all the coordinates of a ship are hit
+                    // change the state to occupied by the shiptype
+
+
+
+
                     /*if(enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y+1).getState() != utility.Empty.state()){ //vertical
                         //get shipType from state at grid pos
                         ShipType shipType = STATE_SHIP_MAPPING.get(enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y+1).getState());

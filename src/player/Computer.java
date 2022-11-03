@@ -32,26 +32,32 @@ public class Computer extends Player {
         for (ShipType shipType : ShipType.values()) {
             // generate horizontal / vertical placement
             Random rand = new Random();
-            int direction = rand.nextInt(2);
             for (int shipFromType = 0; shipFromType < shipType.getNumberOfShips(); shipFromType++) {
                 System.out.println("Number of Ships:" + shipType.getAbbreviation() + shipType.getNumberOfShips());
                 boolean entered_unsuccessfully = true;
                 do {
                     try {
                         //generate random value
-                        int randomY = 0;
+                        int direction = rand.nextInt(2);
                         int randomX = 0;
+                        int randomY = 0;
                         if (direction == 1) {
                             //horizontal
                             randomX = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                             randomY = rand.nextInt(getTarget().getGridSize());
                         } else {
                             //vertical
-                            randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                             randomX = rand.nextInt(getTarget().getGridSize());
+                            randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                         }
                         Coordinate start = new Coordinate(randomX, randomY, Occupied.state());
-                        Coordinate end = new Coordinate(randomX, randomY, Occupied.state());
+                        Coordinate end;
+                        if (direction == 1) {
+                            end = new Coordinate(randomX+(shipType.getShipLength()-1), randomY, Occupied.state());
+                        }
+                        else{
+                            end = new Coordinate(randomX, randomY+(shipType.getShipLength()-1), Occupied.state());
+                        }
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             Ship ship = new Ship(start, end, shipType); //use shiptype as states
@@ -90,7 +96,6 @@ public class Computer extends Player {
             try {
                 x = random.nextInt(this.getTarget().getGridSize());
                 y = random.nextInt(this.getTarget().getGridSize());
-
                 //check if we already shoot at this place in target grid
                 if (this.getTarget().getGridValue(x, y).getState() != utility.Empty.state())
                     throw new Exception("Already attacked!");

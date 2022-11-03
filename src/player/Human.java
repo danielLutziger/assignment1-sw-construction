@@ -44,7 +44,6 @@ public class Human extends Player {
                         String[] coords = new Scanner(mockShipPlacement()).next().split(",");
                         Coordinate start = new Coordinate(coords[0], Occupied.state());
                         Coordinate end = new Coordinate(coords[1], Occupied.state());
-                        System.out.println("Coordinates: Start:" + start.getX() + start.getY()+ " End: "+ end.getX() + end.getY());
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){ //there might be some error in placeShip they can overlap
                             Ship ship = new Ship(start, end, shipType);

@@ -48,7 +48,7 @@ public class Human extends Player {
                         if (this.getOcean().placeShip(start, end)){ //there might be some error in placeShip they can overlap
                             Ship ship = new Ship(start, end, shipType);
                             ships.add(ship);
-                            System.out.println("Ship Length:" + ship.getShipType().getShipLength());
+                            //System.out.println("Ship Length:" + ship.getShipType().getShipLength());
                             if(end.getX() > start.getX()){
                                 for (int x = start.getX(); x < start.getX() + ship.getShipType().getShipLength(); x++){
                                     this.getOcean().setFieldState(x, end.getY(), SHIP_STATE_MAPPING.get(shipType));
@@ -74,7 +74,7 @@ public class Human extends Player {
         this.getOcean().printGrid();
     }
 
-    public void attack(Computer enemy) {
+    public boolean attack(Computer enemy) {
         System.out.println("Enter Coordinates:");
         Random random = new Random();
         int x;
@@ -92,17 +92,22 @@ public class Human extends Player {
                     this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y, utility.Hit.state());
                     //check if we hit all fields from a boat
                     this.checkShipSunk(enemy);
-                }
-                else
-                    this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y,utility.Missed.state());
+                } else
+                    this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y, utility.Missed.state());
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 System.out.println("Bad coordinates or already attacked! Enter different Coordinates:");
             }
-        } while(unsuccessfulAttack);
+        } while (unsuccessfulAttack);
         System.out.println("Target Grid after Attack:");
         this.getTarget().printGrid();
+        if (isGameEnd(enemy)) {
+            System.out.println("Human defeated the Computer");
+            return true;
+        }
+        return false;
     }
+
 
 
     //check if we hit all fields from a boat and if so set state to occupiedShipType
@@ -110,7 +115,7 @@ public class Human extends Player {
         Iterator<Ship> shipIterator = enemy.ships.iterator();
         for(int i=0; i < ships.size(); ++i) {
             Ship currentShip = shipIterator.next();
-            System.out.println("ShipType: " + currentShip.getShipType());
+            //System.out.println("ShipType: " + currentShip.getShipType());
             Coordinate start = currentShip.getStart();
             Coordinate end = currentShip.getEnd();
             boolean fullShipHit = true;
@@ -150,7 +155,17 @@ public class Human extends Player {
         }
     }
 
-
+    private boolean isGameEnd(Computer enemy) {
+        boolean gameEnd = true;
+        Iterator<Ship> shipIterator = enemy.ships.iterator();
+        for(int i=0; i < ships.size(); ++i) {
+            Ship currentShip = shipIterator.next();
+            if (currentShip.getSunk() != true) {
+                gameEnd =  false;
+            }
+        }
+        return gameEnd;
+    }
 
 
     private int counter = -1;

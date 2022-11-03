@@ -26,16 +26,15 @@ public class Main {
 
 
      do {
-            human.attack(computer);
-            if (computer.isFleetDestroyed()){
+            if(human.attack(computer)){
                 System.out.println("Winner is player");
                 break;
             }
-            computer.attack(human);
-            if (human.isFleetDestroyed()){
-                System.out.println("Winner is computer");
-                break;
-            }
+
+             if(computer.attack(human)){
+                 System.out.println("Winner is computer");
+                 break;
+             }
         }while(true);
     }
 

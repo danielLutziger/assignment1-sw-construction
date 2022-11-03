@@ -85,7 +85,7 @@ public class Human extends Player {
             try {
                 CoordinateValue coordinateValue = utility.IO.getCoordinates(new Scanner(System.in).next());
                 //check if already hit
-                if (this.getTarget().getGridValue(coordinateValue.x, coordinateValue.y).getState() == utility.Missed.state() || this.getTarget().getGridValue(coordinateValue.x, coordinateValue.y).getState() == utility.Hit.state())
+                if (this.getTarget().getGridValue(coordinateValue.x, coordinateValue.y).getState() != utility.Empty.state())
                     throw new Exception("Already attacked!");
                 //check for a hit
                 if (enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y).getState() != utility.Empty.state()) {

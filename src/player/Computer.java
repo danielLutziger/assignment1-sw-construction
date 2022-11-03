@@ -98,12 +98,15 @@ public class Computer extends Player {
                 x = random.nextInt(this.getTarget().getGridSize());
                 y = random.nextInt(this.getTarget().getGridSize());
                 //check if we already shoot at this place in target grid
-                if (this.getTarget().getGridValue(x, y).getState() != utility.Empty.state())
+                if (this.getTarget().getGridValue(x, y).getState() == utility.Empty.state())
                     throw new Exception("Already attacked!");
-                //check if there is a boat there and which one
-                if (enemy.getOcean().getGridValue(x, y).getState() == utility.Occupied.state())
-                    enemy.getOcean().setFieldState(x,y,utility.Hit.state());
-                    checkShipSunk(enemy);
+                //check for a hit
+                if (enemy.getOcean().getGridValue(x, y).getState() != utility.Empty.state()) {
+                    this.getTarget().setFieldState(x, y, utility.Hit.state());
+                    //check if we hit all fields from a boat
+                    this.checkShipSunk(enemy);
+                } else
+                    this.getTarget().setFieldState(x, y, utility.Missed.state());
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 //coordinates were already attacked or anything. we do not want to write an output to not spam the user
@@ -111,6 +114,8 @@ public class Computer extends Player {
         } while(unsuccessfulAttack);
         System.out.println("Opponent Ocean:\n");
         getOcean().printGrid(); //dont show computer grid
+        System.out.println("Opponent Target:\n");
+        getTarget().printGrid();
         if (isGameEnd(enemy)) {
             System.out.println("Human defeated the Computer");
             return true;

@@ -38,16 +38,20 @@ public abstract class Grid {
      * Print the grid
      */
     public void printGrid(){
-        System.out.print("\n     A B C D E F G H I J");
-        System.out.print("\n=============================");
+        System.out.print("======= OCEAN  GRID =======\n");
+        System.out.print("    A B C D E F G H I J  \n");
+        System.out.print("   +-+-+-+-+-+-+-+-+-+-+ \n");
         for (int row = 0; row < size; row++){
-            System.out.print("\n"+row+" | ");
+            System.out.print(row+" | ");
             for(int value = 0; value < 10; value++){
-                System.out.print(" " + grid[row][value].getState().toString());
+                System.out.print(grid[row][value].getState()+"|");
             }
-            System.out.print(" | " + row);
+            System.out.print(" " + row+"\n");
         }
-        System.out.print("\n=============================\n");
-        System.out.print("     A B C D E F G H I J\n\n");
+
+        System.out.print("   +-+-+-+-+-+-+-+-+-+-+ \n");
+        System.out.print("    A B C D E F G H I J  \n");
+        System.out.print("===========================\n");
     }
+
 }

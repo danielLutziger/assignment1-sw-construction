@@ -25,8 +25,8 @@ public class Human extends Player {
                         //String[] coords = new Scanner(System.in).next().split(",");
                         //MOCK
                         String[] coords = new Scanner(mockShipPlacement()).next().split(",");
-                        Coordinate start = new Coordinate(coords[0], Occupied.state());
-                        Coordinate end = new Coordinate(coords[1], Occupied.state());
+                        Coordinate start = new Coordinate(coords[0], new Occupied(shipType));
+                        Coordinate end = new Coordinate(coords[1], new Occupied(shipType));
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             Ship ship = new Ship(start, end, shipType);

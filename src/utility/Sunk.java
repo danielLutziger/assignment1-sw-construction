@@ -1,16 +1,16 @@
 package utility;
 
-import grid.Grid;
+import ship.ShipType;
 
 public class Sunk implements CoordinateState {
     private static Sunk state;
-
+    private char underlyingType;
     private Sunk(){}
 
+    public Sunk(ShipType shipType){
+        underlyingType = shipType.getAbbreviation();
+    }
     public static Sunk state() {
-        if(state == null){
-            state = new Sunk();
-        }
         return state;
     }
     @Override
@@ -19,8 +19,9 @@ public class Sunk implements CoordinateState {
         System.out.println("Sunk");
         context.setState(Sunk.state());
     }
+
     @Override
     public String toString(){
-        return "S";
+        return String.valueOf(underlyingType);
     }
 }

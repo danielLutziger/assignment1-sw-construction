@@ -1,14 +1,16 @@
 package utility;
 
+import ship.ShipType;
+
 public class Occupied implements CoordinateState {
     private static Occupied state;
+    private char underlyingType;
 
-    private Occupied(){}
+    public Occupied(ShipType shipType){
+        underlyingType = shipType.getAbbreviation();
+    }
 
     public static Occupied state() {
-        if (state == null){
-            state = new Occupied();
-        }
         return state;
     }
     @Override
@@ -17,8 +19,9 @@ public class Occupied implements CoordinateState {
         System.out.println("Occupied");
         context.setState(Occupied.state());
     }
+
     @Override
     public String toString(){
-        return "O";
+        return String.valueOf(underlyingType);
     }
 }

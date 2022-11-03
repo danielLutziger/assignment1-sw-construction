@@ -33,8 +33,8 @@ public class Computer extends Player {
                             randomY = rand.nextInt(getTarget().getGridSize() - shipType.getShipLength());
                             randomX = rand.nextInt(getTarget().getGridSize());
                         }
-                        Coordinate start = new Coordinate(randomX, randomY, Occupied.state());
-                        Coordinate end = new Coordinate(randomX, randomY, Occupied.state());
+                        Coordinate start = new Coordinate(randomX, randomY, new Occupied(shipType));
+                        Coordinate end = new Coordinate(randomX, randomY, new Occupied(shipType));
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             Ship ship = new Ship(start, end, shipType);

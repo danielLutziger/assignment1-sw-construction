@@ -26,11 +26,11 @@ public class Ship {
         placement.add(start);
         if(end.getX() > start.getX()){
             for (int x = start.getX()+1; x < end.getX(); x++){
-                placement.add(new Coordinate(x, end.getY(), Occupied.state()));
+                placement.add(new Coordinate(x, end.getY(), new Occupied(shipType)));
             }
         } else {
             for (int y = start.getY()+1; y < end.getY(); y++){
-                placement.add(new Coordinate(end.getX(), y, Occupied.state()));
+                placement.add(new Coordinate(end.getX(), y, new Occupied(shipType)));
             }
         }
         placement.add(end);

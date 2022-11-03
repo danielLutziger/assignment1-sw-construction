@@ -9,7 +9,7 @@ import utility.Occupied;
 /**
  * the grid for the ocean showing the attacks
  */
-public class Ocean extends Grid{
+public class Ocean extends Grid {
 
     public boolean placeShip(Coordinate start, Coordinate end) {
         //check if vertical or horizontal
@@ -36,14 +36,15 @@ public class Ocean extends Grid{
         Coordinate[][] grid = getGrid();
 
         if(ship.getEnd().getX() > ship.getStart().getX()){
-            for (int x = ship.getStart().getX()+1; x < ship.getEnd().getX(); x++){
-                grid[x][ship.getStart().getY()].setState(Occupied.state());
+            for (int x = ship.getStart().getX(); x <= ship.getEnd().getX(); x++){
+                grid[x][ship.getStart().getY()].setState(new Occupied(ship.getShipType()));
             }
         } else {
-            for (int y = ship.getStart().getY()+1; y < ship.getEnd().getY(); y++){
-                grid[ship.getStart().getX()][y].setState(Occupied.state());
+            for (int y = ship.getStart().getY(); y <= ship.getEnd().getY(); y++){
+                grid[ship.getStart().getX()][y].setState(new Occupied(ship.getShipType()));
             }
         }
         this.setGrid(grid);
     }
+
 }

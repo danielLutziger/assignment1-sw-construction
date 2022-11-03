@@ -16,22 +16,26 @@ public class GameOperator {
 
 
         TurnState turns = TurnState.randomStart();
-
+        GameState gameState = GameState.RUNNING;
         do{
             if(turns.equals(TurnState.PLAYER_TURN)){
-                attackSequence(player, ai);
+                if (attackSequence(player, ai)){
+                    gameState = GameState.PLAYER_VICTORY;
+                }
             } else {
-                attackSequence(ai, player);
+                if (attackSequence(ai, player)){
+                    gameState = GameState.CPU_VICTORY;
+                }
             }
             turns = TurnState.getOtherState(turns);
-        }while(true);
-
+        }while(gameState.equals(GameState.RUNNING));
     }
-    public void attackSequence(Player attacker, Player defender){
+    public boolean attackSequence(Player attacker, Player defender){
         Coordinate c = attacker.attack();
         CoordinateState cs = defender.underAttack(c);
         c.setState(cs);
         attacker.updateTarget(c);
+        return defender.isFleetDestroyed();
     }
     public static void init(){
         if (gameOperator == null){

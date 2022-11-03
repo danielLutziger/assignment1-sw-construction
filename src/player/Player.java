@@ -3,6 +3,7 @@ package player;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
+import ship.ShipType;
 import utility.*;
 
 import java.util.ArrayList;
@@ -44,7 +45,6 @@ public abstract class Player {
         }
     }
 
-    public Coordinate attack(){return null;}
     public CoordinateState underAttack(Coordinate coordinate){
         if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
             Ship s = getShipFromCoordinate(coordinate);
@@ -63,11 +63,13 @@ public abstract class Player {
     public Ship getShipFromCoordinate(Coordinate c){
         for(Ship s : ships){
             for(Coordinate shipCord : s.getPlacement()){
-                if(shipCord.getY() == c.getX() && shipCord.getX() == c.getY()){
+                if(shipCord.getX() == c.getX() && shipCord.getY() == c.getY()){
                     return s;
                 }
             }
         }
         return null;
     }
+    public Coordinate attack(){return null;}
+
 }

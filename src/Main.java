@@ -6,6 +6,11 @@ import utility.CoordinateState;
 
 public class Main {
     public static void main(String[] args) {
+        char[][] x = new char[10][10];
+        x[0][6] = 'A';
+        System.out.println(x);
+
+
         GameOperator.init();
 /*        Human player = new Human();
         Human ai = new Human();

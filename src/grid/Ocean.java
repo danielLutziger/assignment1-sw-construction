@@ -14,9 +14,6 @@ public class Ocean extends Grid{
     private final int size = 10;
     private Coordinate[][] grid;
 
-
-    //no constructor
-    //constructor sets the coordinate states
     public Ocean(){
     }
     //use hit.updateState()

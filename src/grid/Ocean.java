@@ -18,12 +18,6 @@ public class Ocean extends Grid{
     //no constructor
     //constructor sets the coordinate states
     public Ocean(){
-        grid = new Coordinate[size][size];
-        for (int row = 0; row < size; row++){
-            for(int column = 0; column < size; column++){
-                grid[row][column] = new Coordinate(row, column);
-            }
-        }
     }
     //use hit.updateState()
 

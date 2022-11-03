@@ -19,7 +19,7 @@ public class Computer extends Player {
 
     }
 
-    ArrayList<Ship> ships;
+    ArrayList<Ship> ships = new ArrayList<Ship>();
 
     private final HashMap<ShipType, CoordinateState> SHIP_STATE_MAPPING = new HashMap<ShipType, CoordinateState>() {{
         put(ship.ShipType.CARRIER, utility.OccupiedCarrier.state());
@@ -76,6 +76,7 @@ public class Computer extends Player {
                 } while (entered_unsuccessfully);
             }
         }
+        System.out.println("Opponent Ocean:\n");
         this.getOcean().printGrid();
     }
 

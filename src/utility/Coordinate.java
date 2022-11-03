@@ -48,8 +48,8 @@ public class Coordinate {
         assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
         assert state != null;
 
-        this.y = COORDINATE_MAPPING.get(coordinate.charAt(0)); //here x and y inverted but it only works properly like this
-        this.x = Character.getNumericValue(coordinate.charAt(1));
+        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
+        this.y = Character.getNumericValue(coordinate.charAt(1));
         this.currentState = state;
     }
 
@@ -93,7 +93,7 @@ public class Coordinate {
 
         this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
         this.y = Character.getNumericValue(coordinate.charAt(1));
-        this.currentState = null; //doesn't this fuck up the state?
+        this.currentState = Empty.state(); //doesn't this fuck up the state?
     }
 
     public Coordinate(String coordinate, grid.Grid grid) {

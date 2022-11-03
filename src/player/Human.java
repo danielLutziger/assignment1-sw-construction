@@ -109,7 +109,6 @@ public class Human extends Player {
         do {
             try {
                 CoordinateValue coordinateValue = utility.IO.getCoordinates(new Scanner(System.in).next());
-
                 //check if we already shoot at this place in target grid
                 if (this.getTarget().getGridValue(coordinateValue.x, coordinateValue.y).getState() == utility.Missed.state() || this.getTarget().getGridValue(coordinateValue.x, coordinateValue.y).getState() == utility.Hit.state())
                     throw new Exception("Already attacked!");
@@ -119,7 +118,6 @@ public class Human extends Player {
                     //check if we hit all fields from a boat
                     //compare your hits with the boat at enemy target
                     //get the ship objects
-                    //go through enemy .ships
                     Iterator<Ship> shipIterator = ships.iterator();
                     for(int i=0; i < ships.size(); ++i){
                         Ship currentShip = shipIterator.next();
@@ -130,14 +128,22 @@ public class Human extends Player {
                         boolean fullShipHit = true;
                         if(end.getX() > start.getX()){
                             for (int x_ship = start.getX(); x_ship < end.getX(); x_ship++){
+                                System.out.println("State Value: " + this.getTarget().getGridValue(x_ship,start.getY()).getState().toString());
                                 if(this.getTarget().getGridValue(x_ship,start.getY()).getState() != utility.Hit.state()){
                                     fullShipHit = false;
+                                }
+                                else{
+                                    System.out.println("Hit recognized on: " + currentShip.getShipType() + " Hit at: " + x_ship + start.getY());
                                 }
                             }
                         } else {
                             for (int y_ship = start.getY(); y_ship < end.getY(); y_ship++){
+                                System.out.println("State Value: " + this.getTarget().getGridValue(start.getX(), y_ship).getState().toString());
                                 if(this.getTarget().getGridValue(start.getX(),y_ship).getState() != utility.Hit.state()){
                                     fullShipHit = false;
+                                }
+                                else{
+                                    System.out.println("Hit recognized on: " + currentShip.getShipType() + " Hit at: " + start.getX() + y_ship);
                                 }
                             }
                         }
@@ -151,45 +157,21 @@ public class Human extends Player {
                                     this.getTarget().setFieldState(start.getX(),y_ship, SHIP_STATE_MAPPING.get(currentShip));
                                 }
                             }
+                            currentShip.setSunk();
                         }
+                        //if all ships are sunk then quit game
                     }
-                    //if all the coordinates of a ship are hit
-                    // change the state to occupied by the shiptype
-
-
-
-
-                    /*if(enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y+1).getState() != utility.Empty.state()){ //vertical
-                        //get shipType from state at grid pos
-                        ShipType shipType = STATE_SHIP_MAPPING.get(enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y+1).getState());
-                        //get shipLength from shiptype
-                        int count = 0;
-                        for (int i=0; i<shipType.getShipLength(); ++i){
-                            if()
-                             count++;
-                        }
-                        if(count == shipType.getShipLength()){
-
-                        }
-                    }
-                    else{ //horizontal
-
-                    }*/
                 }
                 else
                     this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y,utility.Missed.state());
                 unsuccessfulAttack = false;
             } catch (Exception e) {
                 //coordinates were already attacked or anything. we do not want to write an output to not spam the user
-                System.out.println("Already attacked! Enter different Coordinates:");
+                System.out.println("Bad coordinates or already attacked! Enter different Coordinates:");
             }
         } while(unsuccessfulAttack);
+        System.out.println("Print Target Grid after Attack:");
         this.getTarget().printGrid();
-    }
-
-    public void ShipSunk(){
-        //check enemy target grid and compare
-
     }
 
     private int counter = -1;

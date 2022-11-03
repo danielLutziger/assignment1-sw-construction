@@ -12,6 +12,8 @@ public class Ship {
     private final ShipType shipType;
     private int health;
 
+    private boolean sunk=false;
+
     private final ArrayList<Coordinate> placement;
 
     public Ship(Coordinate start, Coordinate end, ShipType shipType){
@@ -43,6 +45,17 @@ public class Ship {
     public void shipGotHit(){
         health--;
     }
+
+    public void setSunk(){
+        sunk=true;
+    }
+
+    public boolean getSunk(){
+        return sunk;
+    }
+
+
+
 
     public Coordinate getStart() {
         return start;

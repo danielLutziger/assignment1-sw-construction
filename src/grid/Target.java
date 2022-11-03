@@ -1,12 +1,21 @@
 package grid;
 
 import utility.Coordinate;
+import utility.Empty;
 
 /**
  * the grid for the targets showing the own placements
  */
 public class Target extends Grid{
 
+    public void updateTarget(Coordinate coordinate){
+        this.getGridValue(coordinate).setState(coordinate.getState());
+    }
+
+    public boolean isTargetAttackable(Coordinate coordinate){
+        if (this.getGridValue(coordinate).getState() instanceof Empty) return true;
+        return false;
+    }
 /*
     public char[][] shipAttack(Coordinates attack, Player enemy) throws ShipAlreadyAttackedException {
         Ocean enemyOcean = enemy.getOcean();

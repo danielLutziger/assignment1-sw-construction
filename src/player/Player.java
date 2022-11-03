@@ -6,6 +6,7 @@ import ship.Ship;
 import utility.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Player {
@@ -32,6 +33,7 @@ public abstract class Player {
         ships.add(ship);
     }
 
+
     public boolean isFleetDestroyed(){
         AtomicInteger health = new AtomicInteger();
         ships.forEach( (ship) -> { health.addAndGet(ship.getHealth()); } );
@@ -42,6 +44,7 @@ public abstract class Player {
         }
     }
 
+    public Coordinate attack(){return null;}
     public CoordinateState underAttack(Coordinate coordinate){
         if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
             Ship s = getShipFromCoordinate(coordinate);
@@ -52,15 +55,15 @@ public abstract class Player {
     }
 
     public void updateTarget(Coordinate coordinate){
-        Coordinate c = target.getGridValue(coordinate);
-        c.setState(coordinate.getState());
+
+        target.updateTarget(coordinate);
         target.printGrid();
     }
 
     public Ship getShipFromCoordinate(Coordinate c){
         for(Ship s : ships){
             for(Coordinate shipCord : s.getPlacement()){
-                if(shipCord.getX() == c.getX() && shipCord.getY() == c.getY()){
+                if(shipCord.getY() == c.getX() && shipCord.getX() == c.getY()){
                     return s;
                 }
             }

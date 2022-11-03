@@ -45,6 +45,7 @@ public class Human extends Player {
         }
     }
 
+    @Override
     public Coordinate attack() {
         boolean unsuccessfulAttack = true;
         Coordinate coordinate = null;
@@ -52,8 +53,11 @@ public class Human extends Player {
             System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
                 coordinate = new Coordinate(new Scanner(System.in).next(), Empty.state());
-                //getTarget().shipAttack(coordinate, enemy);
-                unsuccessfulAttack = false;
+                if (getTarget().isTargetAttackable(coordinate)){
+                    unsuccessfulAttack = false;
+                } else {
+                    System.out.println("\nTarget already attacked\n\n");
+                }
             } catch (Exception e) {
                 System.out.println("\nPlease enter valid coordinates...\n\n");
                 System.out.println("Specific error message");

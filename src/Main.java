@@ -1,3 +1,4 @@
+import game.GameOperator;
 import player.Computer;
 import player.Human;
 import utility.Coordinate;
@@ -5,8 +6,8 @@ import utility.CoordinateState;
 
 public class Main {
     public static void main(String[] args) {
-
-        Human player = new Human();
+        GameOperator.init();
+/*        Human player = new Human();
         Human ai = new Human();
         player.shipPlacement();
 

@@ -48,8 +48,8 @@ public class Coordinate {
         assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
         assert state != null;
 
-        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
-        this.y = Character.getNumericValue(coordinate.charAt(1));
+        this.y = COORDINATE_MAPPING.get(coordinate.charAt(0));
+        this.x = Character.getNumericValue(coordinate.charAt(1));
         this.currentState = state;
     }
 
@@ -59,7 +59,7 @@ public class Coordinate {
      * @param y
      * @param state
      */
-    public Coordinate(int x, int y, CoordinateState state) {
+    public Coordinate(int y, int x, CoordinateState state) {
         //validate input
         assert x >= 0 && x <= 9;
         assert y >= 0 && y <= 9;
@@ -80,8 +80,8 @@ public class Coordinate {
         assert coordinate.charAt(0) >= min_x && coordinate.charAt(0) <= max_x;
         assert Character.getNumericValue(coordinate.charAt(1)) >= min_y && Character.getNumericValue(coordinate.charAt(1)) <= max_y;
 
-        this.x = COORDINATE_MAPPING.get(coordinate.charAt(0));
-        this.y = Character.getNumericValue(coordinate.charAt(1));
+        this.y = COORDINATE_MAPPING.get(coordinate.charAt(0));
+        this.x = Character.getNumericValue(coordinate.charAt(1));
         this.currentState = null;
     }
 

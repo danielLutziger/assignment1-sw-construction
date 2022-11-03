@@ -115,30 +115,34 @@ public class Human extends Player {
             Coordinate end = currentShip.getEnd();
             boolean fullShipHit = true;
             if (end.getX() > start.getX()) { //horizontal
-                for (int x_ship = start.getX(); x_ship < end.getX(); x_ship++) {
+                for (int x_ship = start.getX(); x_ship <= end.getX();) {
                     if (this.getTarget().getGridValue(x_ship, start.getY()).getState() != utility.Hit.state()) {
                         fullShipHit = false;
+                        break;
                     } else {
                         System.out.println("Hit recognized on: " + currentShip.getShipType() + " Hit at: " + x_ship + start.getY());
                     }
+                    x_ship++;
                 }
             } else {//vertical
-                for (int y_ship = start.getY(); y_ship < end.getY(); y_ship++) {
+                for (int y_ship = start.getY(); y_ship <= end.getY();) {
                     if (this.getTarget().getGridValue(start.getX(), y_ship).getState() != utility.Hit.state()) {
                         fullShipHit = false;
+                        break;
                     } else {
                         System.out.println("Hit recognized on: " + currentShip.getShipType() + " Hit at: " + start.getX() + y_ship);
                     }
+                    y_ship++;
                 }
             }
             if (fullShipHit) {
                 if (end.getX() > start.getX()) {
-                    for (int x_ship = start.getX(); x_ship < end.getX(); x_ship++) {
-                        this.getTarget().setFieldState(x_ship, start.getY(), SHIP_STATE_MAPPING.get(currentShip));
+                    for (int x_ship = start.getX(); x_ship <= end.getX(); x_ship++) {
+                        this.getTarget().setFieldState(x_ship, start.getY(), SHIP_STATE_MAPPING.get(currentShip.getShipType()));
                     }
                 } else {
-                    for (int y_ship = start.getY(); y_ship < end.getY(); y_ship++) {
-                        this.getTarget().setFieldState(start.getX(), y_ship, SHIP_STATE_MAPPING.get(currentShip));
+                    for (int y_ship = start.getY(); y_ship <= end.getY(); y_ship++) {
+                        this.getTarget().setFieldState(start.getX(), y_ship, SHIP_STATE_MAPPING.get(currentShip.getShipType()));
                     }
                 }
                 currentShip.setSunk();

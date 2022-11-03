@@ -6,6 +6,7 @@ import ship.Ship;
 import ship.ShipType;
 import utility.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,7 +22,7 @@ public abstract class Player {
         this.ships = new ArrayList<>();
     }
 
-    public Ocean getOcean() {
+    protected Ocean getOcean() {
         return ocean;
     }
     public ArrayList<Ship> getShips(){
@@ -49,15 +50,28 @@ public abstract class Player {
         if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
             Ship s = getShipFromCoordinate(coordinate);
             s.shipGotHit();
-            return Hit.state();
+            if (s.getHealth() == 0){
+                return new Sunk(s.getShipType());
+            } else {
+                return Hit.state();
+            }
+
         }
         return Missed.state();
     }
 
-    public void updateTarget(Coordinate coordinate){
+    public boolean didShipSink(Coordinate c){
+        if (c.getState() instanceof Sunk) return true;
+        return false;
+    }
 
+    public ArrayList informAboutSunkenShip(Coordinate c){
+        Ship s = getShipFromCoordinate(c);
+        return s.getPlacement();
+    }
+
+    public void updateTarget(Coordinate coordinate){
         target.updateTarget(coordinate);
-        target.printGrid();
     }
 
     public Ship getShipFromCoordinate(Coordinate c){
@@ -72,4 +86,7 @@ public abstract class Player {
     }
     public Coordinate attack(){return null;}
 
+    public void drawTarget(){
+        this.target.printGrid();
+    }
 }

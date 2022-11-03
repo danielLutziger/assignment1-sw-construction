@@ -6,6 +6,8 @@ import player.Player;
 import utility.Coordinate;
 import utility.CoordinateState;
 
+import java.util.ArrayList;
+
 public class GameOperator {
     private static GameOperator gameOperator;
     private GameOperator(){
@@ -34,7 +36,13 @@ public class GameOperator {
         Coordinate c = attacker.attack();
         CoordinateState cs = defender.underAttack(c);
         c.setState(cs);
-        attacker.updateTarget(c);
+        if (defender.didShipSink(c)){
+            ArrayList<Coordinate> cords = defender.informAboutSunkenShip(c);
+            for (Coordinate cord : cords){
+                attacker.updateTarget(cord);
+            }
+        } else{attacker.updateTarget(c);}
+        attacker.drawTarget();
         return defender.isFleetDestroyed();
     }
     public static void init(){

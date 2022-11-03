@@ -91,7 +91,7 @@ public class Human extends Player {
                 if (enemy.getOcean().getGridValue(coordinateValue.x, coordinateValue.y).getState() != utility.Empty.state()) {
                     this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y, utility.Hit.state());
                     //check if we hit all fields from a boat
-                    this.checkShipSunk();
+                    this.checkShipSunk(enemy);
                 }
                 else
                     this.getTarget().setFieldState(coordinateValue.x, coordinateValue.y,utility.Missed.state());
@@ -106,10 +106,11 @@ public class Human extends Player {
 
 
     //check if we hit all fields from a boat and if so set state to occupiedShipType
-    public void checkShipSunk(){
-        Iterator<Ship> shipIterator = ships.iterator();
+    public void checkShipSunk(Computer enemy){
+        Iterator<Ship> shipIterator = enemy.ships.iterator();
         for(int i=0; i < ships.size(); ++i) {
             Ship currentShip = shipIterator.next();
+            System.out.println("ShipType: " + currentShip.getShipType());
             Coordinate start = currentShip.getStart();
             Coordinate end = currentShip.getEnd();
             boolean fullShipHit = true;

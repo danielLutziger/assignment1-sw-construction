@@ -3,8 +3,10 @@ package player;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
+import ship.ShipType;
 import utility.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,7 +22,7 @@ public abstract class Player {
         this.ships = new ArrayList<>();
     }
 
-    public Ocean getOcean() {
+    protected Ocean getOcean() {
         return ocean;
     }
     public ArrayList<Ship> getShips(){
@@ -44,30 +46,52 @@ public abstract class Player {
         }
     }
 
-    public Coordinate attack(){return null;}
     public CoordinateState underAttack(Coordinate coordinate){
         if (ocean.getGridValue(coordinate).getState() instanceof Occupied) {
             Ship s = getShipFromCoordinate(coordinate);
             s.shipGotHit();
-            return Hit.state();
+            coordinate.setState(Hit.state());
+            if (s.getHealth() == 0){
+                return new Sunk(s.getShipType());
+            } else {
+                return Hit.state();
+            }
+
         }
+        coordinate.setState(Missed.state());
         return Missed.state();
     }
 
-    public void updateTarget(Coordinate coordinate){
+    public boolean didShipSink(Coordinate c){
+        if (c.getState() instanceof Sunk) return true;
+        return false;
+    }
 
+    public ArrayList informAboutSunkenShip(Coordinate c){
+        Ship s = getShipFromCoordinate(c);
+        return s.getPlacement();
+    }
+
+    public void updateTarget(Coordinate coordinate){
         target.updateTarget(coordinate);
-        target.printGrid();
     }
 
     public Ship getShipFromCoordinate(Coordinate c){
         for(Ship s : ships){
             for(Coordinate shipCord : s.getPlacement()){
-                if(shipCord.getY() == c.getX() && shipCord.getX() == c.getY()){
+                if(shipCord.getX() == c.getX() && shipCord.getY() == c.getY()){
                     return s;
                 }
             }
         }
         return null;
+    }
+    public Coordinate attack(){return null;}
+
+    public void drawTarget(){
+        this.target.printGrid();
+    }
+    public void drawOcean(){
+        this.ocean.printGrid();
     }
 }

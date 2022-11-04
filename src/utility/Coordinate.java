@@ -5,7 +5,9 @@ import java.util.HashMap;
 public class Coordinate {
 
     private CoordinateState currentState;
+    //x in einer matrix ist vertikal
     private final int x;
+    //y in einer matrix ist horizontal
     private final int y;
 
     private final char min_x = 'A';
@@ -59,14 +61,14 @@ public class Coordinate {
      * @param y
      * @param state
      */
-    public Coordinate(int y, int x, CoordinateState state) {
+    public Coordinate(int x, int y, CoordinateState state) {
         //validate input
         assert x >= 0 && x <= 9;
         assert y >= 0 && y <= 9;
         assert state != null;
 
-        this.x = x;
         this.y = y;
+        this.x = x;
         this.currentState = state;
     }
 
@@ -97,8 +99,6 @@ public class Coordinate {
         return currentState;
     }
 
-    public boolean coordinateIsAccessible(Coordinate c){
-        if (c.getState() instanceof Empty) return true;
-        return false;
-    }
+    //because in the [x][y] array x is for the rows and y for the columns
+    //therefore, rows are the vertical and columns the horizontal axis and this needs to change
 }

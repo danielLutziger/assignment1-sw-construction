@@ -6,6 +6,8 @@ import player.Player;
 import utility.Coordinate;
 import utility.CoordinateState;
 
+import java.util.ArrayList;
+
 public class GameOperator {
     private static GameOperator gameOperator;
     private GameOperator(){
@@ -16,26 +18,49 @@ public class GameOperator {
 
 
         TurnState turns = TurnState.randomStart();
+        GameState gameState = GameState.RUNNING;
 
         do{
             if(turns.equals(TurnState.PLAYER_TURN)){
-                attackSequence(player, ai);
+                if (attackSequence(player, ai)){
+                    gameState = GameState.PLAYER_VICTORY;
+                }
             } else {
-                attackSequence(ai, player);
+                if (attackSequence(ai, player)){
+                    gameState = GameState.CPU_VICTORY;
+                }
             }
             turns = TurnState.getOtherState(turns);
-        }while(true);
+        }while(gameState.equals(GameState.RUNNING));
+        System.out.println(gameState);
 
+        //winner ocean anzeigen
+        if(turns.equals(TurnState.PLAYER_TURN)){
+            gameEndSequence(player);
+        }else{
+            gameEndSequence(ai);
+        }
     }
-    public void attackSequence(Player attacker, Player defender){
+    public boolean attackSequence(Player attacker, Player defender){
         Coordinate c = attacker.attack();
         CoordinateState cs = defender.underAttack(c);
         c.setState(cs);
-        attacker.updateTarget(c);
+        if (defender.didShipSink(c)){
+            ArrayList<Coordinate> cords = defender.informAboutSunkenShip(c);
+            for (Coordinate cord : cords){
+                attacker.updateTarget(cord);
+            }
+        } else{attacker.updateTarget(c);}
+        attacker.drawTarget();
+        return defender.isFleetDestroyed();
     }
     public static void init(){
         if (gameOperator == null){
             new GameOperator();
         }
+    }
+
+    public void gameEndSequence(Player attacker){
+        attacker.drawOcean();
     }
 }

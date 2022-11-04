@@ -66,7 +66,6 @@ public class Computer extends Player {
         Coordinate coordinate = null;
         Random rand = new Random();
         do {
-            System.out.println("Attack attack attack, Captain enter the coordinates");
             try {
                 int randomX = rand.nextInt(getTarget().getGridSize());
                 int randomY = rand.nextInt(getTarget().getGridSize());

@@ -3,9 +3,9 @@ package ship;
 public enum ShipType {
 
     CARRIER(1, 6, 'C'),
-    BATTLESHIP(2, 4, 'B'),
-    SUBMARINE(3, 3, 'S'),
-    PATROL_BOAT(4, 2, 'P');
+    BATTLESHIP(2, 4, 'B');
+  //  SUBMARINE(3, 3, 'S'),
+  //  PATROL_BOAT(4, 2, 'P');
 
     private final int numberOfShips;
     private final int shipLength;

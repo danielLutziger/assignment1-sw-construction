@@ -21,7 +21,7 @@ public class Coordinate {
     private final int max_y = 9;
 
     //all the possible values on the grid
-    private final HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
+    private final HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<>() {{
         put('A', 0);
         put('B', 1);
         put('C', 2);
@@ -36,10 +36,14 @@ public class Coordinate {
 
     /**
      * Default constructor for first initialization
-     * @param y_coordinate
-     * @param x_coordinate
+     * @param y_coordinate number generated from cpu
+     * @param x_coordinate number generated from cpu
      */
     public Coordinate(int y_coordinate, int x_coordinate){
+        //validate random generated coordinate input
+        assert y_coordinate >= min_y && y_coordinate <= max_y;
+        assert x_coordinate >= min_y && x_coordinate <= max_y;
+
         this.x = x_coordinate;
         this.y = y_coordinate;
         this.currentState = Empty.state();
@@ -64,9 +68,9 @@ public class Coordinate {
 
     /**
      * initialize coordinate for a cpu
-     * @param x
-     * @param y
-     * @param state
+     * @param x number generated from cpu
+     * @param y number generated from cpu
+     * @param state new state for the coord
      */
     public Coordinate(int x, int y, CoordinateState state) {
         //validate input
@@ -94,14 +98,30 @@ public class Coordinate {
         this.currentState = null;
     }
 
+    /**
+     * Get the X value of the coordinate
+     * @return x value of the coordinate
+     */
     public int getX(){return this.x;}
+    /**
+     * Get the Y value of the coordinate
+     * @return y value of the coordinate
+     */
     public int getY(){return this.y;}
 
+    /**
+     * Set the state of the coordinate
+     * @param state the new state
+     */
     public void setState(CoordinateState state)
     {
         currentState = state;
     }
 
+    /**
+     * Get the state of the coordinate
+     * @return currentState of the coordinate
+     */
     public CoordinateState getState(){
         return currentState;
     }

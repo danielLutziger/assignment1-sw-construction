@@ -1,6 +1,8 @@
 package utility;
 
-
+/**
+ * Singleton pattern for the empty state
+ */
 public class Empty implements CoordinateState {
     private static Empty state;
 

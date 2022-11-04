@@ -1,7 +1,8 @@
 package utility;
 
-import grid.Grid;
-
+/**
+ * Singleton state pattern to represent the hits
+ */
 public class Hit implements CoordinateState {
     private static Hit state;
 

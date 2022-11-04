@@ -2,18 +2,25 @@ package utility;
 
 import java.util.HashMap;
 
+/**
+ * Representation of a coordinate
+ */
 public class Coordinate {
 
+    // current state of the coordinate
     private CoordinateState currentState;
-    //x in einer matrix ist vertikal
+    //x in a computer matrix is vertical
     private final int x;
-    //y in einer matrix ist horizontal
+    //y in a computer matrix horizontal
     private final int y;
 
+    //values for the input validation
     private final char min_x = 'A';
     private final int min_y = 0;
     private final char max_x = 'J';
     private final int max_y = 9;
+
+    //all the possible values on the grid
     private final HashMap<Character, Integer> COORDINATE_MAPPING = new HashMap<Character, Integer>() {{
         put('A', 0);
         put('B', 1);
@@ -99,6 +106,4 @@ public class Coordinate {
         return currentState;
     }
 
-    //because in the [x][y] array x is for the rows and y for the columns
-    //therefore, rows are the vertical and columns the horizontal axis and this needs to change
 }

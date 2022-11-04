@@ -2,6 +2,10 @@ package utility;
 
 import ship.ShipType;
 
+/**
+ * State pattern to represent the sunken ship's coordinates
+ * Singleton here is not possible as the coordinate can be sunken but the underlying ship is a different one
+ */
 public class Sunk implements CoordinateState {
     private static Sunk state;
     private char underlyingType;

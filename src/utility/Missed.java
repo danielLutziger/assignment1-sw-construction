@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Singleton state pattern to represent the missed shots
+ */
 public class Missed implements CoordinateState {
     private static Missed state;
 

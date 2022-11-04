@@ -98,7 +98,8 @@ public abstract class Player {
     }
 
     public void drawFinal(Player o, Player t){
-        this.ocean.drawFinal(o.getOcean(),t.getTarget());
+        t.target.printGrid();
+        this.ocean.drawFinal(t.getOcean(),o.getTarget());
     }
 
     public void drawGameFlow(){

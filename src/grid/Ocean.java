@@ -11,6 +11,9 @@ import utility.Occupied;
  */
 public class Ocean extends Grid {
 
+    public Ocean(){
+        setName("OCEAN");
+    }
     public boolean placeShip(Coordinate start, Coordinate end) {
         //check if vertical or horizontal
         //iterate through ship and check if all states are empty

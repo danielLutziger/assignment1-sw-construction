@@ -1,5 +1,6 @@
 package player;
 
+import grid.Grid;
 import grid.Ocean;
 import grid.Target;
 import ship.Ship;
@@ -14,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Player {
     private Ocean ocean;
     private Target target; //changed to public to use in inheriting class
+    private Ocean finalGrid;
     private ArrayList<Ship> ships;
 
     public Player(){
@@ -93,5 +95,17 @@ public abstract class Player {
     }
     public void drawOcean(){
         this.ocean.printGrid();
+    }
+
+    public void drawFinal(Player o, Player t){
+        this.ocean.drawFinal(o.getOcean(),t.getTarget());
+    }
+
+    public void drawGameFlow(){
+        drawTarget();
+        System.out.println("");
+        System.out.println("---------------------------");
+        System.out.println("");
+        drawOcean();
     }
 }

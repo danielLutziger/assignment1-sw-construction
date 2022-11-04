@@ -7,7 +7,9 @@ import utility.Empty;
  * the grid for the targets showing the own placements
  */
 public class Target extends Grid{
-
+    public Target(){
+        setName("TARGET");
+    }
     public void updateTarget(Coordinate coordinate){
         this.getGridValue(coordinate).setState(coordinate.getState());
     }

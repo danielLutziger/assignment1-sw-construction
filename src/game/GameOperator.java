@@ -36,9 +36,9 @@ public class GameOperator {
 
         //winner ocean anzeigen
         if(turns.equals(TurnState.PLAYER_TURN)){
-            gameEndSequence(player);
+            gameEndSequence(player, ai);
         }else{
-            gameEndSequence(ai);
+            gameEndSequence(ai, player);
         }
     }
     public boolean attackSequence(Player attacker, Player defender){
@@ -51,16 +51,19 @@ public class GameOperator {
                 attacker.updateTarget(cord);
             }
         } else{attacker.updateTarget(c);}
-        attacker.drawTarget();
+        if(attacker instanceof Human){
+            attacker.drawGameFlow();
+        }
         return defender.isFleetDestroyed();
     }
-    public static void init(){
+    public static GameOperator run(){
         if (gameOperator == null){
             new GameOperator();
         }
+        return gameOperator;
     }
 
-    public void gameEndSequence(Player attacker){
-        attacker.drawOcean();
+    public void gameEndSequence(Player attacker, Player defender){
+        attacker.drawFinal(attacker, defender);
     }
 }

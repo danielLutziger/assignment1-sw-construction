@@ -7,13 +7,20 @@ import utility.Empty;
 import utility.Occupied;
 
 import java.util.Random;
-import java.util.Scanner;
 
+/**
+ * Computer class (represents the AI)
+ */
 public class Computer extends Player {
 
     public Computer() {
     }
 
+    /**
+     * Method to place the ships for the computer
+     * The ships will be placed randomly
+     */
+    @Override
     public void shipPlacement() {
         for (ShipType shipType : ShipType.values()) {
             // generate horizontal / vertical placement
@@ -42,6 +49,7 @@ public class Computer extends Player {
                         // check ship placement
                         if (this.getOcean().placeShip(start, end)){
                             try{
+                                //ship can be placed
                                 Ship ship = new Ship(start, end, shipType);
                                 addShip(ship);
                                 entered_unsuccessfully = false;
@@ -57,9 +65,12 @@ public class Computer extends Player {
                 } while (entered_unsuccessfully);
             }
         }
-        this.getOcean().printGrid();
     }
 
+    /**
+     * CPU method to attack the opponent
+     * @return the coordinate to be attacked
+     */
     @Override
     public Coordinate attack() {
         boolean unsuccessfulAttack = true;
@@ -67,6 +78,7 @@ public class Computer extends Player {
         Random rand = new Random();
         do {
             try {
+                //generate a random value
                 int randomX = rand.nextInt(getTarget().getGridSize());
                 int randomY = rand.nextInt(getTarget().getGridSize());
                 coordinate = new Coordinate(randomX, randomY, Empty.state());
@@ -74,6 +86,8 @@ public class Computer extends Player {
                     unsuccessfulAttack = false;
                 }
             } catch (Exception e) {
+                //exceptions happen due to wrongly created coordinates
+                //we do not want to spam, hence left out
             }
         } while(unsuccessfulAttack);
 

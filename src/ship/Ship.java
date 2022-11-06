@@ -9,8 +9,7 @@ import java.util.ArrayList;
  * A representation of a ship in the game
  */
 public class Ship {
-    private final Coordinate start;
-    private final Coordinate end;
+
     private final ArrayList<Coordinate> placement;
     private final ShipType shipType;
     private int health;
@@ -26,8 +25,6 @@ public class Ship {
         assert ((shipType.getShipLength()-1 == (end.getX() - start.getX()) && start.getY() == end.getY())
                 ^ (shipType.getShipLength()-1 == (end.getY() - start.getY()) && start.getX() == end.getX()));
         this.shipType = shipType;
-        this.start = start;
-        this.end = end;
         this.health = shipType.getShipLength();
 
         placement = new ArrayList<>();
@@ -65,7 +62,7 @@ public class Ship {
      * @return the start coordinate of the ship
      */
     public Coordinate getStart() {
-        return start;
+        return placement.get(0);
     }
 
     /**
@@ -73,7 +70,7 @@ public class Ship {
      * @return the end coordinate of the ship
      */
     public Coordinate getEnd() {
-        return end;
+        return placement.get(placement.size()-1);
     }
 
     /**
